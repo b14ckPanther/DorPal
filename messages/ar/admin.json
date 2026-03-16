@@ -28,7 +28,8 @@
       "business_name": "اسم العمل",
       "category": "الفئة",
       "date": "التاريخ",
-      "applicant_message": "رسالة المتقدم"
+      "applicant_message": "رسالة المتقدم",
+      "desired_plan": "الباقة المطلوبة"
     },
     "businesses": {
       "title": "جميع الأنشطة التجارية",

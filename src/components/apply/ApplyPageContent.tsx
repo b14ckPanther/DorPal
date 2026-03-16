@@ -23,12 +23,17 @@ import { Input } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
-import type { Locality, Category } from "@/lib/supabase/queries";
+import type {
+  Locality,
+  Category,
+  PublicSubscriptionPlan,
+} from "@/lib/supabase/queries";
 
 interface ApplyPageContentProps {
   locale: string;
   localities: Locality[];
   categories: Category[];
+  plans: PublicSubscriptionPlan[];
 }
 
 const BENEFITS = [
@@ -38,9 +43,15 @@ const BENEFITS = [
   { icon: Clock, key: "4" },
 ];
 
-export function ApplyPageContent({ locale, localities, categories }: ApplyPageContentProps) {
+export function ApplyPageContent({
+  locale,
+  localities,
+  categories,
+  plans,
+}: ApplyPageContentProps) {
   const t = useTranslations();
   const router = useRouter();
+  const fallbackPlanSlug = plans[0]?.slug ?? "starter";
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     full_name: "",
@@ -51,10 +62,17 @@ export function ApplyPageContent({ locale, localities, categories }: ApplyPageCo
     locality_id: "",
     address: "",
     message: "",
+    desired_plan_slug: fallbackPlanSlug,
   });
 
   const getName = (obj: { name_ar: string; name_he: string; name_en: string }) =>
     locale === "ar" ? obj.name_ar : locale === "he" ? obj.name_he : obj.name_en;
+  const getPlanName = (plan: PublicSubscriptionPlan) =>
+    locale === "ar"
+      ? plan.name_ar
+      : locale === "he"
+      ? plan.name_he
+      : plan.name_en;
 
   const ArrowIcon = locale === "en" ? ArrowRight : ArrowLeft;
 
@@ -81,6 +99,9 @@ export function ApplyPageContent({ locale, localities, categories }: ApplyPageCo
         locality_id: form.locality_id || null,
         address: form.address || null,
         description_en: form.message || null,
+        admin_notes: JSON.stringify({
+          desired_plan_slug: form.desired_plan_slug || fallbackPlanSlug,
+        }),
       });
       if (error) {
         console.error("Failed to submit application:", error.message);
@@ -262,6 +283,54 @@ export function ApplyPageContent({ locale, localities, categories }: ApplyPageCo
                   </div>
                 </div>
 
+                {/* Plan selection */}
+                <div>
+                  <h3 className="text-sm font-semibold text-dp-text-secondary uppercase tracking-wide mb-4">
+                    {t("apply.plan.title")}
+                  </h3>
+                  <p className="text-xs text-dp-text-muted mb-3">
+                    {t("apply.plan.subtitle")}
+                  </p>
+                  <div className="space-y-2">
+                    {plans.map((plan) => {
+                      const selected = form.desired_plan_slug === plan.slug;
+                      return (
+                        <button
+                          key={plan.id}
+                          type="button"
+                          onClick={() => setField("desired_plan_slug", plan.slug)}
+                          className={cn(
+                            "w-full rounded-card border p-3 text-start transition-all",
+                            selected
+                              ? "border-brand-iris bg-brand-iris/5"
+                              : "border-dp-border hover:border-brand-iris/40"
+                          )}
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <div>
+                              <p className="font-semibold text-sm text-dp-text-primary">
+                                {getPlanName(plan)}
+                              </p>
+                              <p className="text-xs text-dp-text-muted">
+                                {plan.currency} {plan.price_monthly ?? 0} /{" "}
+                                {t("apply.plan.month")}
+                              </p>
+                            </div>
+                            <span
+                              className={cn(
+                                "h-4 w-4 rounded-full border-2",
+                                selected
+                                  ? "border-brand-iris bg-brand-iris"
+                                  : "border-dp-border"
+                              )}
+                            />
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 <Button
                   type="submit"
                   size="lg"
@@ -272,6 +341,36 @@ export function ApplyPageContent({ locale, localities, categories }: ApplyPageCo
                   {!loading && <ArrowIcon className="h-5 w-5" />}
                 </Button>
               </form>
+            </div>
+            <div className="mt-6 bg-dp-surface rounded-card border border-dp-border shadow-card p-6 sm:p-8">
+              <h3 className="text-lg font-bold text-dp-text-primary mb-4">
+                {t("apply.plan.compare_title")}
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {plans.map((plan) => (
+                  <div key={plan.id} className="border border-dp-border rounded-card p-4 bg-dp-surface-alt">
+                    <p className="font-semibold text-sm text-dp-text-primary mb-1">
+                      {getPlanName(plan)}
+                    </p>
+                    <p className="text-sm text-dp-text-secondary mb-2">
+                      {plan.currency} {plan.price_monthly ?? 0} / {t("apply.plan.month")}
+                    </p>
+                    <ul className="space-y-1 text-xs text-dp-text-muted">
+                      {[1, 2, 3].map((i) => {
+                        const featureKey = `apply.plan.features.${plan.slug}.${i}`;
+                        return (
+                          <li key={i}>
+                            •{" "}
+                            {t.has(featureKey)
+                              ? t(featureKey)
+                              : t("apply.plan.features.default")}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 

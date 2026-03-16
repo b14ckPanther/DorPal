@@ -83,7 +83,38 @@ export async function POST(
     joined_at: new Date().toISOString(),
   });
 
-  const { data: plan } = await sb.from("subscription_plans").select("id, trial_days").eq("is_active", true).order("sort_order").limit(1).single();
+  const desiredPlanSlug = (() => {
+    const raw = app.admin_notes as string | null;
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw) as { desired_plan_slug?: string };
+      return parsed.desired_plan_slug ?? null;
+    } catch {
+      return null;
+    }
+  })();
+
+  let plan: { id: string; trial_days: number | null } | null = null;
+  if (desiredPlanSlug) {
+    const { data: desiredPlan } = await sb
+      .from("subscription_plans")
+      .select("id, trial_days")
+      .eq("is_active", true)
+      .eq("slug", desiredPlanSlug)
+      .maybeSingle();
+    plan = desiredPlan ?? null;
+  }
+  if (!plan) {
+    const { data: fallbackPlan } = await sb
+      .from("subscription_plans")
+      .select("id, trial_days")
+      .eq("is_active", true)
+      .order("sort_order")
+      .limit(1)
+      .single();
+    plan = fallbackPlan ?? null;
+  }
+
   if (plan) {
     const start = new Date();
     const end = new Date(start);

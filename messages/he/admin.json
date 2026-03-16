@@ -28,7 +28,8 @@
       "business_name": "שם העסק",
       "category": "קטגוריה",
       "date": "תאריך",
-      "applicant_message": "תיאור המבקש"
+      "applicant_message": "תיאור המבקש",
+      "desired_plan": "מסלול רצוי"
     },
     "businesses": {
       "title": "כל העסקים",

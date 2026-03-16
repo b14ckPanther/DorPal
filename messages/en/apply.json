@@ -28,6 +28,30 @@
     "address": "Address",
     "message_label": "Tell us about your business",
     "message_placeholder": "Describe your services, experience, and what makes you special...",
+    "plan": {
+      "title": "Desired subscription",
+      "subtitle": "Choose the plan you want to start with after approval.",
+      "compare_title": "Plan comparison",
+      "month": "month",
+      "features": {
+        "default": "Feature details will be shared during onboarding.",
+        "starter": {
+          "1": "For solo owners and small teams",
+          "2": "Core booking, services, and profile tools",
+          "3": "14-day trial before billing starts"
+        },
+        "growth": {
+          "1": "For growing teams with higher volume",
+          "2": "More staff and offer capacity",
+          "3": "Best balance for most businesses"
+        },
+        "pro": {
+          "1": "For advanced operations and analytics",
+          "2": "Maximum limits and premium controls",
+          "3": "Built for scale and multi-staff workflows"
+        }
+      }
+    },
     "submit": "Submit Application",
     "submitting": "Submitting...",
     "benefits": {

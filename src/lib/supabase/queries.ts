@@ -17,6 +17,19 @@ export interface Category {
   slug: string;
 }
 
+export interface PublicSubscriptionPlan {
+  id: string;
+  slug: string;
+  name_ar: string;
+  name_he: string;
+  name_en: string;
+  price_monthly: number | null;
+  price_yearly: number | null;
+  currency: string;
+  trial_days: number;
+  sort_order: number;
+}
+
 export interface ServicePreview {
   name_ar: string | null;
   name_he: string | null;
@@ -82,6 +95,22 @@ export async function getCategories(): Promise<Category[]> {
     return [];
   }
   return (data ?? []) as Category[];
+}
+
+export async function getPublicSubscriptionPlans(): Promise<PublicSubscriptionPlan[]> {
+  const supabase = await createClient();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (supabase as any)
+    .from("subscription_plans")
+    .select("id, slug, name_ar, name_he, name_en, price_monthly, price_yearly, currency, trial_days, sort_order")
+    .eq("is_active", true)
+    .order("sort_order", { ascending: true });
+
+  if (error) {
+    console.error("Failed to fetch subscription plans:", error.message);
+    return [];
+  }
+  return (data ?? []) as PublicSubscriptionPlan[];
 }
 
 export async function getActiveBusinesses(limit = 50): Promise<BusinessListing[]> {
@@ -485,6 +514,7 @@ export interface ApplicationItem {
   status: string;
   submitted_at: string;
   rejection_reason: string | null;
+  desired_plan_slug: string | null;
 }
 
 export async function getApplications(): Promise<ApplicationItem[]> {
@@ -495,7 +525,7 @@ export async function getApplications(): Promise<ApplicationItem[]> {
     .select(
       `id, applicant_name, applicant_email, applicant_phone,
        business_name_en, business_name_ar, address, description_en,
-       status, submitted_at, rejection_reason,
+       status, submitted_at, rejection_reason, admin_notes,
        business_categories(name_ar, name_en),
        localities(name_ar, name_en)`
     )
@@ -525,6 +555,16 @@ export async function getApplications(): Promise<ApplicationItem[]> {
       status: a.status as string,
       submitted_at: a.submitted_at as string,
       rejection_reason: a.rejection_reason as string | null,
+      desired_plan_slug: (() => {
+        const raw = a.admin_notes as string | null;
+        if (!raw) return null;
+        try {
+          const parsed = JSON.parse(raw) as { desired_plan_slug?: string };
+          return parsed.desired_plan_slug ?? null;
+        } catch {
+          return null;
+        }
+      })(),
       category_name_ar: cat?.name_ar as string ?? "",
       category_name_en: cat?.name_en as string ?? "",
       locality_name_ar: loc?.name_ar as string ?? "",

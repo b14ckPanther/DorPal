@@ -33,7 +33,7 @@ export default async function ApplyThanksPage({ params, searchParams }: Props) {
           </p>
           {email && (
             <p className="text-sm text-dp-text-secondary mb-8">
-              {t("apply.success.message").replace("{email}", email)}
+              {t("apply.success.message", { email })}
             </p>
           )}
 

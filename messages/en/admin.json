@@ -28,7 +28,8 @@
       "business_name": "Business",
       "category": "Category",
       "date": "Date",
-      "applicant_message": "Description"
+      "applicant_message": "Description",
+      "desired_plan": "Desired plan"
     },
     "businesses": {
       "title": "All Businesses",

@@ -12,11 +12,67 @@ export function DashboardSubscriptionPage({ locale }: Props) {
   const t = useTranslations("dashboard");
   const [sub, setSub] = useState<DashboardSubscription | null>(null);
   const [billing, setBilling] = useState<{ id: string; amount: number; currency: string; status: string; paid_at: string | null; created_at: string }[]>([]);
+  const [plans, setPlans] = useState<
+    { id: string; slug: string; name_en: string; name_ar: string; name_he: string; price_monthly: number | null; price_yearly: number | null; currency: string; trial_days: number }[]
+  >([]);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [actionLoading, setActionLoading] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/dashboard/subscription").then((r) => r.json()).then((d) => setSub(d?.id ? d : null));
     fetch("/api/dashboard/billing").then((r) => r.json()).then(setBilling);
+    fetch("/api/dashboard/subscription/plans").then((r) => r.json()).then((d) => setPlans(Array.isArray(d) ? d : []));
   }, []);
+
+  function planName(p: { name_en: string; name_ar: string; name_he: string }) {
+    if (locale === "ar") return p.name_ar ?? p.name_en;
+    if (locale === "he") return p.name_he ?? p.name_en;
+    return p.name_en;
+  }
+
+  async function startCheckout(planSlug: string, billingCycle: "monthly" | "yearly") {
+    setActionError(null);
+    setActionLoading(`${planSlug}:${billingCycle}`);
+    try {
+      const res = await fetch("/api/dashboard/subscription/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ planSlug, billingCycle, locale }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.url) {
+        setActionError(data?.message ?? "Failed to start Stripe checkout.");
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      setActionError("Failed to start Stripe checkout.");
+    } finally {
+      setActionLoading(null);
+    }
+  }
+
+  async function openBillingPortal() {
+    setActionError(null);
+    setActionLoading("portal");
+    try {
+      const res = await fetch("/api/dashboard/subscription/portal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ locale }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.url) {
+        setActionError(data?.message ?? "Failed to open billing portal.");
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      setActionError("Failed to open billing portal.");
+    } finally {
+      setActionLoading(null);
+    }
+  }
 
   return (
     <div className="space-y-6 max-w-5xl">
@@ -41,13 +97,55 @@ export function DashboardSubscriptionPage({ locale }: Props) {
               <div><p className="text-xs text-dp-text-muted">{t("subscription.usage_offers")}</p><p className="font-medium">{sub.usage_offers}</p></div>
               <div><p className="text-xs text-dp-text-muted">{t("subscription.usage_reminders")}</p><p className="font-medium">{sub.usage_reminders_this_month}</p></div>
             </div>
-            <Button variant="outline" size="sm" asChild>
-              <a href="#" onClick={(e) => { e.preventDefault(); }}>{t("subscription.manage_billing")}</a>
+            <Button variant="outline" size="sm" onClick={openBillingPortal} disabled={actionLoading === "portal"}>
+              {t("subscription.manage_billing")}
             </Button>
           </CardContent>
         </Card>
       ) : (
         <Card><CardContent className="py-8 text-center text-dp-text-muted">No active subscription</CardContent></Card>
+      )}
+
+      <div>
+        <h2 className="text-lg font-semibold mb-2">Plans</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {plans.map((p) => (
+            <Card key={p.id}>
+              <CardContent className="p-4 space-y-3">
+                <p className="font-semibold text-dp-text-primary">{planName(p)}</p>
+                <p className="text-sm text-dp-text-muted">
+                  {p.currency} {p.price_monthly ?? 0} / month
+                </p>
+                <p className="text-sm text-dp-text-muted">
+                  {p.currency} {p.price_yearly ?? 0} / year
+                </p>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    onClick={() => startCheckout(p.slug, "monthly")}
+                    disabled={actionLoading === `${p.slug}:monthly`}
+                  >
+                    Monthly
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => startCheckout(p.slug, "yearly")}
+                    disabled={actionLoading === `${p.slug}:yearly`}
+                  >
+                    Yearly
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {actionError && (
+        <Card>
+          <CardContent className="py-3 text-sm text-dp-error">{actionError}</CardContent>
+        </Card>
       )}
       <div>
         <h2 className="text-lg font-semibold mb-2">{t("subscription.billing_history")}</h2>

@@ -56,6 +56,10 @@
     "enter_details": "הזן את פרטיך",
     "details_hint": "נשתמש בפרטים האלו כדי לאשר את ההזמנה.",
     "confirm_placeholder": "אשר (דמו – ללא תשלום כרגע)",
+    "continue_to_paypal": "המשך ל-PayPal",
+    "payment_success": "התשלום הושלם בהצלחה.",
+    "payment_cancelled": "התשלום בוטל. ניתן לנסות שוב מתוך תהליך ההזמנה.",
+    "payment_error": "לא ניתן היה לאשר את התשלום. נסה שוב.",
 
     "hero_subtitle": "בחר שירות, תאריך ושעה כדי לבקש תור.",
     "what_next_title": "מה קורה אחרי זה?",

@@ -7,12 +7,12 @@ import { Button } from "@/components/ui/Button";
 
 type Props = {
   params: Promise<{ locale: string; id: string }>;
-  searchParams: Promise<{ token?: string }>;
+  searchParams: Promise<{ token?: string; checkout?: "success" | "cancel" | "error" }>;
 };
 
 export default async function BookingConfirmPage({ params, searchParams }: Props) {
   const { locale, id } = await params;
-  const { token: guestToken } = await searchParams;
+  const { token: guestToken, checkout } = await searchParams;
   const t = await getTranslations("booking");
   const supabase = await createClient();
 
@@ -43,6 +43,21 @@ export default async function BookingConfirmPage({ params, searchParams }: Props
             </p>
           ) : (
             <div className="bg-dp-surface border border-dp-border rounded-card shadow-card p-6 space-y-3">
+              {checkout === "cancel" && (
+                <p className="text-sm text-dp-warning">
+                  {t("payment_cancelled")}
+                </p>
+              )}
+              {checkout === "success" && (
+                <p className="text-sm text-dp-success">
+                  {t("payment_success")}
+                </p>
+              )}
+              {checkout === "error" && (
+                <p className="text-sm text-dp-error">
+                  {t("payment_error")}
+                </p>
+              )}
               <h1 className="text-xl font-bold text-dp-text-primary mb-1">
                 {appointment.status === "confirmed"
                   ? t("booking_confirmed")

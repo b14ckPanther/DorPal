@@ -281,6 +281,16 @@ export function AdminApplicationsPage({ locale, applications }: AdminApplication
                     <p className="text-sm text-dp-text-secondary">{app.description_en}</p>
                   </div>
                 )}
+                {app.desired_plan_slug && (
+                  <div className="sm:col-span-2 p-3 bg-dp-surface-alt rounded-card-sm">
+                    <p className="text-xs text-dp-text-muted mb-1">
+                      {t("admin.applications.desired_plan")}
+                    </p>
+                    <p className="text-sm text-dp-text-secondary capitalize">
+                      {app.desired_plan_slug}
+                    </p>
+                  </div>
+                )}
               </div>
 
               {app.status === "pending" && (

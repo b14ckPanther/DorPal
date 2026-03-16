@@ -4,9 +4,9 @@ import {
   CalendarCheck, TrendingUp, Star, Users, ArrowUpRight,
   Calendar, Clock, CheckCircle2, XCircle, AlertCircle,
 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -15,108 +15,142 @@ import {
 import { useAuth } from "@/components/providers/AuthProvider";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import type { BookingListItem } from "@/lib/supabase/queries";
 
 interface DashboardOverviewProps {
   locale: string;
 }
 
-const STATS = [
-  {
-    key: "today_bookings",
-    value: "8",
-    change: "+2",
-    positive: true,
-    icon: CalendarCheck,
-    color: "text-brand-iris",
-    bg: "bg-brand-iris/10",
-  },
-  {
-    key: "revenue",
-    value: "₪1,240",
-    change: "+18%",
-    positive: true,
-    icon: TrendingUp,
-    color: "text-dp-success",
-    bg: "bg-dp-success-bg",
-  },
-  {
-    key: "rating",
-    value: "4.9",
-    change: "+0.1",
-    positive: true,
-    icon: Star,
-    color: "text-yellow-500",
-    bg: "bg-yellow-50",
-  },
-  {
-    key: "new_reviews",
-    value: "3",
-    change: "Today",
-    positive: null,
-    icon: Users,
-    color: "text-brand-plum",
-    bg: "bg-brand-plum/10",
-  },
-];
-
-const CHART_DATA = [
-  { day: "Sun", bookings: 4, revenue: 320 },
-  { day: "Mon", bookings: 7, revenue: 580 },
-  { day: "Tue", bookings: 5, revenue: 420 },
-  { day: "Wed", bookings: 9, revenue: 760 },
-  { day: "Thu", bookings: 8, revenue: 640 },
-  { day: "Fri", bookings: 6, revenue: 480 },
-  { day: "Sat", bookings: 3, revenue: 240 },
-];
-
-const TODAY_BOOKINGS = [
-  {
-    id: "1",
-    customer: "Adam Young",
-    service: "Classic Cut",
-    time: "10:00",
-    staff: "Mike",
-    status: "confirmed",
-    price: 45,
-  },
-  {
-    id: "2",
-    customer: "Omar Simon",
-    service: "Hair + Beard",
-    time: "11:00",
-    staff: "Ahmad",
-    status: "confirmed",
-    price: 70,
-  },
-  {
-    id: "3",
-    customer: "Yousef Nasser",
-    service: "Beard Trim",
-    time: "11:30",
-    staff: "Mike",
-    status: "pending",
-    price: 35,
-  },
-  {
-    id: "4",
-    customer: "Khaled Ibrahim",
-    service: "Classic Cut",
-    time: "14:00",
-    staff: "Khaled",
-    status: "cancelled",
-    price: 45,
-  },
-];
-
 const STATUS_CONFIG = {
   confirmed: { icon: CheckCircle2, color: "text-dp-success", bg: "bg-dp-success-bg" },
   pending: { icon: AlertCircle, color: "text-dp-warning", bg: "bg-dp-warning-bg" },
   cancelled: { icon: XCircle, color: "text-dp-error", bg: "bg-dp-error-bg" },
+  completed: { icon: CheckCircle2, color: "text-dp-success", bg: "bg-dp-success-bg" },
+  checked_in: { icon: CheckCircle2, color: "text-dp-success", bg: "bg-dp-success-bg" },
+  in_progress: { icon: CheckCircle2, color: "text-dp-success", bg: "bg-dp-success-bg" },
+  no_show: { icon: XCircle, color: "text-dp-error", bg: "bg-dp-error-bg" },
 };
 
 export function DashboardOverview({ locale }: DashboardOverviewProps) {
   const t = useTranslations();
   const { profile } = useAuth();
+  const [todayBookings, setTodayBookings] = useState<BookingListItem[]>([]);
+  const [weekBookings, setWeekBookings] = useState<BookingListItem[]>([]);
+  const [monthRevenue, setMonthRevenue] = useState(0);
+  const [reviewsAvg, setReviewsAvg] = useState(0);
+  const [newReviewsToday, setNewReviewsToday] = useState(0);
+
+  const localeCode = locale === "ar" ? "ar" : locale === "he" ? "he" : "en";
+
+  useEffect(() => {
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10);
+    const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1))
+      .toISOString()
+      .slice(0, 10);
+    const weekStartDate = new Date(now);
+    weekStartDate.setDate(now.getDate() - now.getDay());
+    const weekEndDate = new Date(weekStartDate);
+    weekEndDate.setDate(weekStartDate.getDate() + 6);
+    const weekStart = weekStartDate.toISOString().slice(0, 10);
+    const weekEnd = weekEndDate.toISOString().slice(0, 10);
+
+    void (async () => {
+      const [todayRes, weekRes, analyticsRes, reviewsRes] = await Promise.all([
+        fetch(`/api/dashboard/bookings?from=${today}&to=${today}`),
+        fetch(`/api/dashboard/bookings?from=${weekStart}&to=${weekEnd}`),
+        fetch(`/api/dashboard/analytics?from=${monthStart}&to=${today}`),
+        fetch("/api/dashboard/reviews"),
+      ]);
+
+      if (todayRes.ok) {
+        const data = (await todayRes.json()) as BookingListItem[];
+        setTodayBookings((data ?? []).sort((a, b) => a.start_at.localeCompare(b.start_at)));
+      }
+      if (weekRes.ok) {
+        const data = (await weekRes.json()) as BookingListItem[];
+        setWeekBookings(data ?? []);
+      }
+      if (analyticsRes.ok) {
+        const data = (await analyticsRes.json()) as { revenue?: number };
+        setMonthRevenue(Number(data?.revenue ?? 0));
+      }
+      if (reviewsRes.ok) {
+        const reviews = (await reviewsRes.json()) as { rating: number; created_at: string }[];
+        const list = reviews ?? [];
+        const avg = list.length > 0
+          ? list.reduce((sum, r) => sum + Number(r.rating || 0), 0) / list.length
+          : 0;
+        const todayCount = list.filter((r) => r.created_at.slice(0, 10) === today).length;
+        setReviewsAvg(avg);
+        setNewReviewsToday(todayCount);
+      }
+    })();
+  }, []);
+
+  const chartData = useMemo(() => {
+    const now = new Date();
+    const weekStartDate = new Date(now);
+    weekStartDate.setDate(now.getDate() - now.getDay());
+    const days = Array.from({ length: 7 }).map((_, i) => {
+      const d = new Date(weekStartDate);
+      d.setDate(weekStartDate.getDate() + i);
+      const iso = d.toISOString().slice(0, 10);
+      const count = weekBookings.filter(
+        (b) => b.start_at.slice(0, 10) === iso && b.status !== "cancelled"
+      ).length;
+      return {
+        day: d.toLocaleDateString(localeCode, { weekday: "short" }),
+        bookings: count,
+      };
+    });
+    return days;
+  }, [localeCode, weekBookings]);
+
+  const formattedRevenue = new Intl.NumberFormat(localeCode, {
+    style: "currency",
+    currency: "ILS",
+    maximumFractionDigits: 0,
+  }).format(monthRevenue);
+
+  const stats = [
+    {
+      key: "today_bookings",
+      value: String(todayBookings.filter((b) => b.status !== "cancelled").length),
+      change: t("common.today"),
+      positive: null,
+      icon: CalendarCheck,
+      color: "text-brand-iris",
+      bg: "bg-brand-iris/10",
+    },
+    {
+      key: "revenue",
+      value: formattedRevenue,
+      change: null,
+      positive: null,
+      icon: TrendingUp,
+      color: "text-dp-success",
+      bg: "bg-dp-success-bg",
+    },
+    {
+      key: "rating",
+      value: reviewsAvg > 0 ? reviewsAvg.toFixed(1) : "—",
+      change: null,
+      positive: null,
+      icon: Star,
+      color: "text-yellow-500",
+      bg: "bg-yellow-50",
+    },
+    {
+      key: "new_reviews",
+      value: String(newReviewsToday),
+      change: t("common.today"),
+      positive: null,
+      icon: Users,
+      color: "text-brand-plum",
+      bg: "bg-brand-plum/10",
+    },
+  ];
 
   return (
     <div className="space-y-6 max-w-6xl">
@@ -137,7 +171,7 @@ export function DashboardOverview({ locale }: DashboardOverviewProps) {
 
       {/* Stats grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        {STATS.map((stat) => {
+        {stats.map((stat) => {
           const Icon = stat.icon;
           return (
             <Card key={stat.key} className="p-4 sm:p-5">
@@ -145,7 +179,7 @@ export function DashboardOverview({ locale }: DashboardOverviewProps) {
                 <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center shrink-0", stat.bg)}>
                   <Icon className={cn("h-5 w-5", stat.color)} />
                 </div>
-                {stat.positive !== null && (
+                {stat.positive !== null && stat.change && (
                   <span className={cn(
                     "text-xs font-medium",
                     stat.positive ? "text-dp-success" : "text-dp-error"
@@ -154,7 +188,7 @@ export function DashboardOverview({ locale }: DashboardOverviewProps) {
                     {stat.positive && <ArrowUpRight className="inline h-3 w-3" />}
                   </span>
                 )}
-                {stat.positive === null && (
+                {stat.positive === null && stat.change && (
                   <span className="text-xs text-dp-text-muted">{stat.change}</span>
                 )}
               </div>
@@ -184,7 +218,7 @@ export function DashboardOverview({ locale }: DashboardOverviewProps) {
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={200}>
-              <AreaChart data={CHART_DATA}>
+              <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="bookingsGrad" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#7C5CFF" stopOpacity={0.15} />
@@ -259,9 +293,14 @@ export function DashboardOverview({ locale }: DashboardOverviewProps) {
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
-            {TODAY_BOOKINGS.map((booking) => {
+            {todayBookings.length === 0 && (
+              <p className="text-sm text-dp-text-muted">{t("dashboard.bookings.no_bookings")}</p>
+            )}
+            {todayBookings.slice(0, 6).map((booking) => {
               const status = STATUS_CONFIG[booking.status as keyof typeof STATUS_CONFIG];
+              if (!status) return null;
               const StatusIcon = status.icon;
+              const customerName = booking.customer_name || booking.guest_name || "—";
               return (
                 <div
                   key={booking.id}
@@ -269,21 +308,32 @@ export function DashboardOverview({ locale }: DashboardOverviewProps) {
                 >
                   <div className="h-9 w-9 rounded-full bg-brand-iris/10 flex items-center justify-center shrink-0">
                     <span className="text-brand-iris font-bold text-sm">
-                      {booking.customer[0]}
+                      {customerName[0] ?? "?"}
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-dp-text-primary truncate">
-                      {booking.customer}
+                      {customerName}
                     </p>
                     <p className="text-xs text-dp-text-muted">
-                      {booking.service} · {booking.staff}
+                      {(booking.service_names[0] ?? "—")} · {(booking.staff_name ?? "—")}
                     </p>
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
                     <div className="text-end hidden sm:block">
-                      <p className="text-xs font-medium text-dp-text-secondary num">{booking.time}</p>
-                      <p className="text-xs text-dp-text-muted num">₪{booking.price}</p>
+                      <p className="text-xs font-medium text-dp-text-secondary num">
+                        {new Date(booking.start_at).toLocaleTimeString(localeCode, {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                      <p className="text-xs text-dp-text-muted num">
+                        {new Intl.NumberFormat(localeCode, {
+                          style: "currency",
+                          currency: "ILS",
+                          maximumFractionDigits: 0,
+                        }).format(booking.total_price)}
+                      </p>
                     </div>
                     <div className={cn("flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium", status.bg, status.color)}>
                       <StatusIcon className="h-3 w-3" />

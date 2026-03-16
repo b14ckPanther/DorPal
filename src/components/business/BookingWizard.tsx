@@ -8,6 +8,8 @@ import { CalendarDays, Clock, User, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
+import { toast } from "sonner";
+import { PayPalIcon } from "@/components/icons/PayPalIcon";
 import type { BusinessProfile, Service, StaffMember, AvailabilitySlot } from "@/lib/supabase/queries";
 
 type Step = "service" | "datetime" | "staff" | "details";
@@ -42,6 +44,7 @@ export function BookingWizard({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const services = business.services;
 
@@ -51,6 +54,13 @@ export function BookingWizard({
   );
 
   const staffForBusiness: StaffMember[] = business.staff;
+  const paymentProvider = (
+    process.env.NEXT_PUBLIC_PAYMENT_PROVIDER ?? "stripe"
+  ).toLowerCase();
+  const requiresDeposit = selectedServices.some(
+    (service) =>
+      service.deposit_required && (service.deposit_amount ?? 0) > 0
+  );
 
   const directionClass = locale === "en" ? "ltr" : "rtl";
 
@@ -126,7 +136,8 @@ export function BookingWizard({
 
   async function handleSubmitDetails(e: React.FormEvent) {
     e.preventDefault();
-    if (selectedServices.length === 0 || !selectedSlot) return;
+    if (selectedServices.length === 0 || !selectedSlot || submitting) return;
+    setSubmitting(true);
     try {
       const res = await fetch("/api/bookings", {
         method: "POST",
@@ -134,30 +145,38 @@ export function BookingWizard({
         body: JSON.stringify({
           businessId: business.id,
           serviceIds: selectedServices.map((s) => s.id),
-          partySize,
-          staffIds:
-            partySize > 1 && staffForParty.length === partySize
-              ? staffForParty
-              : [selectedStaffId ?? selectedSlot.staff_id],
+          staffId: selectedStaffId ?? selectedSlot.staff_id,
           startAt: selectedSlot.start_at,
           endAt: selectedSlot.end_at,
           name,
           email,
           phone,
+          locale,
         }),
       });
 
       if (!res.ok) {
-        // eslint-disable-next-line no-console
-        console.error("Failed to create booking", await res.json());
+        const errorBody = await res.json().catch(() => ({}));
+        const errorMessage =
+          (errorBody as { error?: string; details?: string })?.error ??
+          (errorBody as { message?: string })?.message ??
+          t("errors.generic");
+        toast.error(errorMessage);
         return;
       }
 
       const data = (await res.json()) as {
         appointmentId: string;
         clientSecret?: string | null;
+        checkoutUrl?: string | null;
         guestToken?: string | null;
       };
+
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+        return;
+      }
+
       const tokenQ = data.guestToken
         ? `?token=${encodeURIComponent(data.guestToken)}`
         : "";
@@ -165,6 +184,9 @@ export function BookingWizard({
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Unexpected error creating booking", error);
+      toast.error(t("errors.generic"));
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -481,8 +503,15 @@ export function BookingWizard({
               />
             </div>
           </div>
-          <Button type="submit" size="lg" className="w-full">
-            {t("booking.confirm_placeholder")}
+          <Button type="submit" size="lg" className="w-full gap-2" disabled={submitting}>
+            {requiresDeposit && paymentProvider === "paypal" ? (
+              <>
+                <PayPalIcon className="h-4 w-4" />
+                {t("booking.continue_to_paypal")}
+              </>
+            ) : (
+              t("booking.confirm_placeholder")
+            )}
           </Button>
         </form>
       )}

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@/lib/supabase/server";
 import { createGuestBookingToken } from "@/lib/guest-token";
+import { createPayPalOrder } from "@/lib/paypal/server";
 
 async function triggerBookingNotification(appointmentId: string) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -39,6 +40,7 @@ export async function POST(req: Request) {
       name,
       email,
       phone,
+      locale,
     } = body as {
       businessId: string;
       serviceId?: string;
@@ -49,6 +51,7 @@ export async function POST(req: Request) {
       name: string;
       email: string;
       phone: string;
+      locale?: string;
     };
 
     const effectiveServiceIds =
@@ -99,6 +102,23 @@ export async function POST(req: Request) {
       0
     );
     const depositRequired = anyDepositRequired && depositAmountTotal > 0;
+    const paymentProvider = (process.env.PAYMENT_PROVIDER ?? "stripe").toLowerCase();
+
+    if (depositRequired) {
+      if (paymentProvider === "paypal") {
+        if (!process.env.PAYPAL_CLIENT_ID || !process.env.PAYPAL_CLIENT_SECRET) {
+          return NextResponse.json(
+            { error: "PayPal payments are not configured yet." },
+            { status: 503 }
+          );
+        }
+      } else if (!process.env.STRIPE_SECRET_KEY) {
+        return NextResponse.json(
+          { error: "Deposit payments are not configured yet." },
+          { status: 503 }
+        );
+      }
+    }
 
     // Insert appointment
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -158,13 +178,15 @@ export async function POST(req: Request) {
       );
     }
 
+    const guestToken =
+      !user && appointmentId
+        ? createGuestBookingToken(appointmentId)
+        : undefined;
+
     let clientSecret: string | null = null;
+    let checkoutUrl: string | null = null;
 
-    if (depositRequired && depositAmountTotal > 0 && process.env.STRIPE_SECRET_KEY) {
-      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-
-      const amountCents = Math.round(depositAmountTotal * 100);
-
+    if (depositRequired && depositAmountTotal > 0) {
       // Create payment record first
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { data: payment, error: paymentError } = await (supabase as any)
@@ -177,36 +199,135 @@ export async function POST(req: Request) {
           amount: depositAmountTotal,
           currency,
           status: "pending",
-          external_provider: "stripe",
+          external_provider: paymentProvider,
         })
         .select("id")
         .single();
 
       if (!paymentError && payment) {
         const paymentId = payment.id as string;
+        const requestOrigin = new URL(req.url).origin;
+        const appUrl =
+          process.env.NEXT_PUBLIC_APP_URL ?? requestOrigin;
+        const localePrefix =
+          locale && ["ar", "he", "en"].includes(locale) ? locale : "ar";
+        const tokenQuery = guestToken
+          ? `&guest_token=${encodeURIComponent(guestToken)}`
+          : "";
 
-        const intent = await stripe.paymentIntents.create({
-          amount: amountCents,
-          currency: currency.toLowerCase(),
-          metadata: {
-            appointment_id: appointmentId,
-            payment_id: paymentId,
-          },
-        });
+        if (paymentProvider === "paypal") {
+          const order = await createPayPalOrder({
+            amount: depositAmountTotal.toFixed(2),
+            currency,
+            returnUrl: `${appUrl}/api/paypal/return?appointment_id=${encodeURIComponent(
+              appointmentId
+            )}&payment_id=${encodeURIComponent(
+              paymentId
+            )}&locale=${encodeURIComponent(localePrefix)}${tokenQuery}`,
+            cancelUrl: `${appUrl}/api/paypal/cancel?appointment_id=${encodeURIComponent(
+              appointmentId
+            )}&payment_id=${encodeURIComponent(
+              paymentId
+            )}&locale=${encodeURIComponent(localePrefix)}${tokenQuery}`,
+            email: user?.email ?? email,
+            customId: appointmentId,
+            invoiceId: paymentId,
+          });
 
-        clientSecret = intent.client_secret;
+          if (!order?.id) {
+            return NextResponse.json(
+              { error: "Failed to initialize PayPal checkout." },
+              { status: 500 }
+            );
+          }
+
+          await (supabase as any)
+            .from("payments")
+            .update({ external_id: order.id })
+            .eq("id", paymentId);
+
+          const approveLink = order.links?.find((link) => link.rel === "approve");
+          checkoutUrl = approveLink?.href ?? null;
+          if (!checkoutUrl) {
+            return NextResponse.json(
+              { error: "PayPal approval URL was not returned." },
+              { status: 500 }
+            );
+          }
+        } else {
+          const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+          const amountCents = Math.round(depositAmountTotal * 100);
+
+          const intent = await stripe.paymentIntents.create({
+            amount: amountCents,
+            currency: currency.toLowerCase(),
+            metadata: {
+              appointment_id: appointmentId,
+              payment_id: paymentId,
+            },
+          });
+
+          clientSecret = intent.client_secret;
+
+          const successUrl = `${appUrl}/${localePrefix}/booking/${appointmentId}/confirm?checkout=success${guestToken ? `&token=${encodeURIComponent(guestToken)}` : ""}`;
+          const cancelUrl = `${appUrl}/${localePrefix}/booking/${appointmentId}/confirm?checkout=cancel${guestToken ? `&token=${encodeURIComponent(guestToken)}` : ""}`;
+
+          const session = await stripe.checkout.sessions.create({
+            mode: "payment",
+            success_url: successUrl,
+            cancel_url: cancelUrl,
+            customer_email: user?.email ?? email,
+            payment_method_types: ["card"],
+            line_items: [
+              {
+                quantity: 1,
+                price_data: {
+                  currency: currency.toLowerCase(),
+                  unit_amount: amountCents,
+                  product_data: {
+                    name: `Booking deposit`,
+                    description: `Deposit for appointment ${appointmentId}`,
+                  },
+                },
+              },
+            ],
+            payment_intent_data: {
+              metadata: {
+                appointment_id: appointmentId,
+                payment_id: paymentId,
+              },
+            },
+            metadata: {
+              appointment_id: appointmentId,
+              payment_id: paymentId,
+            },
+          });
+
+          checkoutUrl = session.url ?? null;
+          if (!checkoutUrl) {
+            return NextResponse.json(
+              { error: "Failed to initialize booking checkout." },
+              { status: 500 }
+            );
+          }
+        }
+      } else {
+        return NextResponse.json(
+          { error: "Failed to initialize booking payment." },
+          { status: 500 }
+        );
       }
     } else {
       // No deposit: trigger confirmation notification immediately
       await triggerBookingNotification(appointmentId);
     }
 
-    const guestToken =
-      !user && appointmentId
-        ? createGuestBookingToken(appointmentId)
-        : undefined;
-
-    return NextResponse.json({ appointmentId, clientSecret, guestToken });
+    return NextResponse.json({
+      appointmentId,
+      clientSecret,
+      checkoutUrl,
+      guestToken,
+    });
   } catch (error) {
     console.error("Error creating booking:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
