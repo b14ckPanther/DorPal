@@ -72,10 +72,12 @@ export function LoginForm({ locale }: LoginFormProps) {
     setLoading(true);
     try {
       const supabase = createClient();
+      const redirectBase =
+        process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin;
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/${locale}/auth/callback`,
+          emailRedirectTo: `${redirectBase}/${locale}/auth/callback`,
         },
       });
       if (error) throw error;
