@@ -11,8 +11,32 @@ const intlMiddleware = createIntlMiddleware({
   localePrefix: "always",
 });
 
+function stripLocalePrefix(pathname: string) {
+  const localePrefix = new RegExp(`^/(?:${locales.join("|")})(?=/|$)`);
+  const stripped = pathname.replace(localePrefix, "");
+  return stripped.length === 0 ? "/" : stripped;
+}
+
+function needsAuthRefresh(pathname: string) {
+  const protectedPrefixes = ["/dashboard", "/admin", "/profile", "/my-bookings"];
+  return protectedPrefixes.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+  );
+}
+
 export async function middleware(request: NextRequest) {
   const response = intlMiddleware(request);
+  const pathname = stripLocalePrefix(request.nextUrl.pathname);
+
+  // Avoid auth roundtrips for public routes.
+  if (!needsAuthRefresh(pathname)) {
+    return response;
+  }
+
+  // Keep local development snappy when using placeholder config.
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+    return response;
+  }
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
