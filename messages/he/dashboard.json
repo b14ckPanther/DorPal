@@ -1,0 +1,93 @@
+{
+  "dashboard": {
+    "welcome": "ברוך שובך, {name}",
+    "nav": {
+      "overview": "סקירה כללית",
+      "profile": "פרופיל עסק",
+      "services": "שירותים",
+      "staff": "צוות",
+      "schedule": "לוח זמנים",
+      "bookings": "הזמנות",
+      "offers": "מבצעים",
+      "reviews": "ביקורות",
+      "analytics": "ניתוחים",
+      "subscription": "מנוי",
+      "settings": "הגדרות"
+    },
+    "overview": {
+      "today_bookings": "הזמנות היום",
+      "revenue": "הכנסות החודש",
+      "rating": "ממוצע דירוג",
+      "new_reviews": "ביקורות חדשות"
+    },
+    "bookings": {
+      "title": "כל ההזמנות",
+      "upcoming": "קרובות",
+      "no_bookings": "אין הזמנות עדיין",
+      "no_bookings_hint": "הזמנות יופיעו כאן כשלקוחות יתחילו להזמין",
+      "filters": "סינון",
+      "date_from": "מ",
+      "date_to": "עד",
+      "status": "סטטוס",
+      "staff": "צוות",
+      "service": "שירות",
+      "reschedule": "קביעת מועד מחדש",
+      "no_show": "לא הופיע",
+      "view_profile": "הצג פרופיל"
+    },
+    "schedule": {
+      "title": "לוח זמנים",
+      "subtitle": "הזמנות וחסימות",
+      "day": "יום",
+      "week": "שבוע",
+      "all_staff": "כל הצוות",
+      "no_appointments": "אין הזמנות בטווח זה"
+    },
+    "status": {
+      "pending": "ממתין",
+      "confirmed": "מאושר",
+      "cancelled": "בוטל",
+      "completed": "הושלם",
+      "no_show": "לא הופיע"
+    },
+    "actions": {
+      "confirm": "אשר",
+      "cancel": "בטל",
+      "complete": "סמן כהושלם",
+      "view": "הצג פרטים",
+      "add_service": "הוסף שירות",
+      "add_staff": "הוסף איש צוות"
+    },
+    "services": {
+      "title": "שירותים",
+      "subtitle": "נהל שירותים והקצה צוות",
+      "no_services": "אין שירותים עדיין",
+      "add_first": "הוסף את השירות הראשון",
+      "name": "שם",
+      "duration": "משך (דק')",
+      "price": "מחיר",
+      "deposit": "מקדמה",
+      "active": "פעיל",
+      "staff_assigned": "צוות מוקצה",
+      "edit": "ערוך",
+      "deactivate": "בטל הפעלה"
+    },
+    "staff": {
+      "title": "צוות",
+      "subtitle": "נהל צוות וזמינות",
+      "no_staff": "אין צוות עדיין",
+      "add_first": "הוסף את חבר הצוות הראשון",
+      "role": "תפקיד",
+      "hours": "שעות עבודה",
+      "blocks": "חסימות",
+      "edit": "ערוך",
+      "deactivate": "בטל הפעלה",
+      "invite": "הזמן צוות"
+    },
+    "offers": { "title": "מבצעים", "subtitle": "ניהול מבצעים", "add": "הוסף מבצע", "no_offers": "אין מבצעים", "discount": "הנחה", "percentage": "אחוז", "fixed": "קבוע", "valid_until": "תקף עד", "reply": "השב", "respond": "השב" },
+    "reviews": { "title": "ביקורות", "subtitle": "ביקורות לקוחות", "no_reviews": "אין ביקורות", "your_response": "התגובה שלך", "report": "דווח" },
+    "analytics": { "title": "ניתוחים", "subtitle": "הזמנות והכנסות", "bookings_count": "הזמנות", "revenue": "הכנסות", "new_customers": "לקוחות חדשים", "cancellations": "ביטולים", "export_csv": "ייצוא CSV" },
+    "subscription": { "title": "מנוי", "subtitle": "תוכנית ושימוש", "plan": "תוכנית", "status": "סטטוס", "period_end": "סוף תקופה", "usage_staff": "צוות", "usage_offers": "מבצעים", "usage_reminders": "תזכורות החודש", "manage_billing": "נהל חיוב", "billing_history": "היסטוריית חיוב" },
+    "settings": { "title": "הגדרות", "subtitle": "העדפות התראות", "email_on_booking": "אימייל בהזמנה חדשה", "sms_on_reminder": "SMS תזכורת" }
+  }
+}

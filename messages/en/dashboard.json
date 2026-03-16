@@ -1,0 +1,134 @@
+{
+  "dashboard": {
+    "welcome": "Welcome back, {name}",
+    "nav": {
+      "overview": "Overview",
+      "profile": "Business Profile",
+      "services": "Services",
+      "staff": "Staff",
+      "schedule": "Schedule",
+      "bookings": "Bookings",
+      "offers": "Offers",
+      "reviews": "Reviews",
+      "analytics": "Analytics",
+      "subscription": "Subscription",
+      "settings": "Settings"
+    },
+    "overview": {
+      "today_bookings": "Today's Bookings",
+      "revenue": "This Month's Revenue",
+      "rating": "Average Rating",
+      "new_reviews": "New Reviews"
+    },
+    "bookings": {
+      "title": "All Bookings",
+      "upcoming": "Upcoming",
+      "no_bookings": "No bookings yet",
+      "no_bookings_hint": "Bookings will appear here once clients start booking",
+      "filters": "Filters",
+      "date_from": "From",
+      "date_to": "To",
+      "status": "Status",
+      "staff": "Staff",
+      "service": "Service",
+      "reschedule": "Reschedule",
+      "no_show": "Mark No-Show",
+      "view_profile": "View profile"
+    },
+    "schedule": {
+      "title": "Schedule",
+      "subtitle": "View appointments and blocks",
+      "day": "Day",
+      "week": "Week",
+      "all_staff": "All staff",
+      "no_appointments": "No appointments in this range"
+    },
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled",
+      "completed": "Completed",
+      "no_show": "No-show"
+    },
+    "actions": {
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "complete": "Mark Complete",
+      "view": "View Details",
+      "add_service": "Add Service",
+      "add_staff": "Add Staff"
+    },
+    "services": {
+      "title": "Services",
+      "subtitle": "Manage services and assign staff",
+      "no_services": "No services yet",
+      "add_first": "Add your first service",
+      "name": "Name",
+      "duration": "Duration (min)",
+      "price": "Price",
+      "deposit": "Deposit",
+      "active": "Active",
+      "staff_assigned": "Staff assigned",
+      "edit": "Edit",
+      "deactivate": "Deactivate"
+    },
+    "staff": {
+      "title": "Staff",
+      "subtitle": "Manage team and availability",
+      "no_staff": "No staff yet",
+      "add_first": "Add your first team member",
+      "role": "Role",
+      "hours": "Working hours",
+      "blocks": "Blocked slots",
+      "edit": "Edit",
+      "deactivate": "Deactivate",
+      "invite": "Invite staff"
+    },
+    "offers": {
+      "title": "Offers",
+      "subtitle": "Manage promotions",
+      "add": "Add offer",
+      "no_offers": "No offers yet",
+      "discount": "Discount",
+      "percentage": "Percentage",
+      "fixed": "Fixed",
+      "valid_until": "Valid until",
+      "reply": "Reply",
+      "respond": "Respond"
+    },
+    "reviews": {
+      "title": "Reviews",
+      "subtitle": "Customer reviews",
+      "no_reviews": "No reviews yet",
+      "your_response": "Your response",
+      "report": "Report"
+    },
+    "analytics": {
+      "title": "Analytics",
+      "subtitle": "Bookings and revenue",
+      "bookings_count": "Bookings",
+      "revenue": "Revenue",
+      "new_customers": "New customers",
+      "cancellations": "Cancellations",
+      "export_csv": "Export CSV"
+    },
+    "subscription": {
+      "title": "Subscription",
+      "subtitle": "Plan and usage",
+      "plan": "Plan",
+      "status": "Status",
+      "period_end": "Period end",
+      "usage_staff": "Staff",
+      "usage_offers": "Offers",
+      "usage_reminders": "Reminders this month",
+      "manage_billing": "Manage billing",
+      "billing_history": "Billing history"
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Notification preferences",
+      "email_on_booking": "Email on new booking",
+      "sms_on_reminder": "SMS reminder"
+    }
+  }
+}

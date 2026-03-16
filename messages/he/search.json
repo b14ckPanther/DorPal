@@ -1,0 +1,19 @@
+{
+  "search": {
+    "placeholder": "חפש לפי שם, שירות או מיקום...",
+    "filters": "פילטרים",
+    "button": "חיפוש",
+    "locality": "עיר",
+    "category": "קטגוריה",
+    "sort_label": "מיין לפי",
+    "sort_rating": "דירוג גבוה",
+    "sort_newest": "הכי חדש",
+    "sort_name": "שם א-ת",
+    "has_offers": "יש מבצעים",
+    "clear_filters": "נקה פילטרים",
+    "results_count": "נמצאו {count} עסקים",
+    "no_results": "לא נמצאו עסקים",
+    "no_results_hint": "נסה לשנות את הפילטרים או מילת החיפוש",
+    "book_now": "הזמן עכשיו"
+  }
+}

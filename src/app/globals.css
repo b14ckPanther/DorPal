@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-brand-plum: #5b2a86;
+  --color-brand-plum-dark: #4a2270;
+  --color-brand-iris: #7c5cff;
+  --color-brand-iris-dark: #6b4be6;
+  --color-brand-iris-light: #ede9fe;
+  --color-accent-cyan: #22c7f2;
+
+  --color-bg: #fcfaff;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f4effa;
+  --color-border: #e8dff0;
+
+  --color-text-primary: #1f1630;
+  --color-text-secondary: #5e5570;
+  --color-text-muted: #8a8198;
+
+  --color-success: #1f9d55;
+  --color-success-bg: #d1fae5;
+  --color-warning: #d97706;
+  --color-warning-bg: #fef3c7;
+  --color-error: #d64545;
+  --color-error-bg: #fee2e2;
+  --color-info: #3b82f6;
+  --color-info-bg: #e0f2fe;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* RTL-aware logical properties */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="ltr"] {
+  text-align: left;
+}
+
+/* Focus ring system */
+:focus-visible {
+  outline: 2px solid var(--color-brand-iris);
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #5b2a86 0%, #7c5cff 50%, #22c7f2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-dark {
+  background: rgba(31, 22, 48, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Shimmer loading effect */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-alt) 25%,
+    var(--color-border) 50%,
+    var(--color-surface-alt) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Star rating */
+.star-filled {
+  color: #f59e0b;
+  fill: #f59e0b;
+}
+
+.star-empty {
+  color: var(--color-border);
+  fill: var(--color-border);
+}
+
+/* Booking step connector */
+.step-connector {
+  flex: 1;
+  height: 2px;
+  background: var(--color-border);
+  transition: background-color 0.3s ease;
+}
+
+.step-connector.active {
+  background: var(--color-brand-iris);
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card-hover:hover {
+  box-shadow: 0 10px 15px -3px rgba(31, 22, 48, 0.08),
+    0 4px 6px -4px rgba(31, 22, 48, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Offer badge pulse */
+.offer-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Hero gradient bg */
+.hero-gradient {
+  background: radial-gradient(ellipse at top, #5b2a8620 0%, transparent 60%),
+    radial-gradient(ellipse at bottom right, #7c5cff15 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, #22c7f210 0%, transparent 50%),
+    var(--color-bg);
+}
+
+/* Section gradient */
+.section-gradient {
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface-alt) 100%);
+}
+
+/* Number in Arabic/Hebrew context */
+.num {
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
+}

@@ -1,0 +1,28 @@
+{
+  "business": {
+    "book": "Book Now",
+    "book_now": "Book Now",
+    "featured": "Featured",
+    "offer_badge": "Offer",
+    "reviews": "reviews",
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "about": "About",
+    "gallery": "Gallery",
+    "deposit_required": "Deposit required",
+    "closed": "Closed",
+    "location": "Location",
+    "contact": "Contact",
+    "services": "Services",
+    "staff": "Team",
+    "hours": "Hours",
+    "verified_badge": "Verified Business",
+    "open_now": "Open Now",
+    "closed_now": "Closed",
+    "opens_at": "Opens at {time}",
+    "closes_at": "Closes at {time}",
+    "service_from": "From",
+    "book_subtitle": "Choose a service and a suitable date",
+    "instant_confirm": "Instant confirmation · Free cancellation"
+  }
+}

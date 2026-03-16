@@ -1,0 +1,28 @@
+{
+  "business": {
+    "book": "احجز الآن",
+    "book_now": "احجز الآن",
+    "featured": "مميّز",
+    "offer_badge": "عرض",
+    "reviews": "مراجعة",
+    "call": "اتصل",
+    "whatsapp": "واتساب",
+    "about": "نبذة عنا",
+    "gallery": "المعرض",
+    "deposit_required": "مطلوب عربون",
+    "closed": "مغلق",
+    "location": "الموقع",
+    "contact": "التواصل",
+    "services": "الخدمات",
+    "staff": "الفريق",
+    "hours": "أوقات العمل",
+    "verified_badge": "نشاط موثّق",
+    "open_now": "مفتوح الآن",
+    "closed_now": "مغلق",
+    "opens_at": "يفتح الساعة {time}",
+    "closes_at": "يغلق الساعة {time}",
+    "service_from": "من",
+    "book_subtitle": "اختر خدمة وتاريخ مناسب لك",
+    "instant_confirm": "تأكيد فوري · إلغاء مجاني"
+  }
+}

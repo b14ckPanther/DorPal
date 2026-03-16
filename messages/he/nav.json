@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "home": "דף הבית",
+    "search": "גלה",
+    "for_businesses": "לעסקים",
+    "login": "התחברות",
+    "signup": "הרשמה",
+    "dashboard": "לוח הבקרה",
+    "admin": "פאנל ניהול",
+    "my_bookings": "ההזמנות שלי",
+    "profile": "פרופיל",
+    "logout": "התנתקות",
+    "language": "שפה",
+    "ar": "العربية",
+    "he": "עברית",
+    "en": "English",
+    "apply": "הצטרף כספק",
+    "menu": "תפריט"
+  }
+}

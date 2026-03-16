@@ -1,0 +1,57 @@
+{
+  "apply": {
+    "title": "List Your Business on DorPal",
+    "subtitle": "Join hundreds of beauty professionals and grow your client base",
+    "trial_badge": "14-day free trial",
+    "process": {
+      "title": "What happens after submitting?",
+      "step1": "We receive and review your application within 24 hours",
+      "step2": "We contact you to confirm details",
+      "step3": "We activate your account and get started together"
+    },
+    "form": {
+      "title": "Application Form",
+      "subtitle": "Fill in your details and we'll review your application within 48 hours"
+    },
+    "section": {
+      "personal": "Your Details",
+      "business": "Business Information"
+    },
+    "full_name": "Your full name",
+    "email": "Email address",
+    "phone": "Phone number",
+    "business_name": "Business name",
+    "category": "Category",
+    "locality": "City",
+    "address": "Address",
+    "message_label": "Tell us about your business",
+    "message_placeholder": "Describe your services, experience, and what makes you special...",
+    "submit": "Submit Application",
+    "submitting": "Submitting...",
+    "benefits": {
+      "title": "Why join DorPal?",
+      "1": {
+        "title": "24/7 Online Booking",
+        "desc": "Accept bookings around the clock without lifting a finger"
+      },
+      "2": {
+        "title": "Grow Your Clientele",
+        "desc": "Reach thousands of potential clients searching for services like yours"
+      },
+      "3": {
+        "title": "Business Analytics",
+        "desc": "Track revenue, bookings, and your most popular services"
+      },
+      "4": {
+        "title": "Automated Reminders",
+        "desc": "Reduce no-shows with automatic SMS and email reminders"
+      }
+    },
+    "success": {
+      "title": "Application received",
+      "subtitle": "Thank you for applying to join DorPal.",
+      "message": "We’ve received your application and will reply to {email} after review.",
+      "home": "Back to home"
+    }
+  }
+}

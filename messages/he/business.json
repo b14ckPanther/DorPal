@@ -1,0 +1,28 @@
+{
+  "business": {
+    "book": "הזמן עכשיו",
+    "book_now": "הזמן עכשיו",
+    "featured": "מומלץ",
+    "offer_badge": "מבצע",
+    "reviews": "ביקורות",
+    "call": "התקשר",
+    "whatsapp": "וואטסאפ",
+    "about": "אודות",
+    "gallery": "גלריה",
+    "deposit_required": "דרוש מקדמה",
+    "closed": "סגור",
+    "location": "מיקום",
+    "contact": "יצירת קשר",
+    "services": "שירותים",
+    "staff": "צוות",
+    "hours": "שעות",
+    "verified_badge": "עסק מאומת",
+    "open_now": "פתוח עכשיו",
+    "closed_now": "סגור",
+    "opens_at": "נפתח ב-{time}",
+    "closes_at": "נסגר ב-{time}",
+    "service_from": "מ",
+    "book_subtitle": "בחר שירות ותאריך מתאים לך",
+    "instant_confirm": "אישור מיידי · ביטול חינם"
+  }
+}

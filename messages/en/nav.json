@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "home": "Home",
+    "search": "Explore",
+    "for_businesses": "For Businesses",
+    "login": "Login",
+    "signup": "Sign Up",
+    "dashboard": "Dashboard",
+    "admin": "Admin Panel",
+    "my_bookings": "My Bookings",
+    "profile": "Profile",
+    "logout": "Sign Out",
+    "language": "Language",
+    "ar": "العربية",
+    "he": "עברית",
+    "en": "English",
+    "apply": "Join as a Provider",
+    "menu": "Menu"
+  }
+}

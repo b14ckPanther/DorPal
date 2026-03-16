@@ -1,0 +1,93 @@
+{
+  "dashboard": {
+    "welcome": "مرحباً، {name}",
+    "nav": {
+      "overview": "نظرة عامة",
+      "profile": "ملف العمل",
+      "services": "الخدمات",
+      "staff": "الموظفون",
+      "schedule": "الجدول",
+      "bookings": "الحجوزات",
+      "offers": "العروض",
+      "reviews": "المراجعات",
+      "analytics": "التحليلات",
+      "subscription": "الاشتراك",
+      "settings": "الإعدادات"
+    },
+    "overview": {
+      "today_bookings": "حجوزات اليوم",
+      "revenue": "إيرادات الشهر",
+      "rating": "متوسط التقييم",
+      "new_reviews": "مراجعات جديدة"
+    },
+    "bookings": {
+      "title": "جميع الحجوزات",
+      "upcoming": "القادمة",
+      "no_bookings": "لا توجد حجوزات بعد",
+      "no_bookings_hint": "ستظهر الحجوزات هنا عندما يبدأ العملاء بالحجز",
+      "filters": "تصفية",
+      "date_from": "من",
+      "date_to": "إلى",
+      "status": "الحالة",
+      "staff": "الموظف",
+      "service": "الخدمة",
+      "reschedule": "إعادة الجدولة",
+      "no_show": "عدم الحضور",
+      "view_profile": "عرض الملف"
+    },
+    "schedule": {
+      "title": "الجدول",
+      "subtitle": "عرض الحجوزات والكتل",
+      "day": "يوم",
+      "week": "أسبوع",
+      "all_staff": "كل الموظفين",
+      "no_appointments": "لا حجوزات في هذا النطاق"
+    },
+    "status": {
+      "pending": "قيد الانتظار",
+      "confirmed": "مؤكد",
+      "cancelled": "ملغى",
+      "completed": "مكتمل",
+      "no_show": "لم يحضر"
+    },
+    "actions": {
+      "confirm": "تأكيد",
+      "cancel": "إلغاء",
+      "complete": "تعليم كمكتمل",
+      "view": "عرض التفاصيل",
+      "add_service": "إضافة خدمة",
+      "add_staff": "إضافة موظف"
+    },
+    "services": {
+      "title": "الخدمات",
+      "subtitle": "إدارة الخدمات وتعيين الموظفين",
+      "no_services": "لا توجد خدمات بعد",
+      "add_first": "أضف أول خدمة",
+      "name": "الاسم",
+      "duration": "المدة (دقيقة)",
+      "price": "السعر",
+      "deposit": "العربون",
+      "active": "نشط",
+      "staff_assigned": "موظفون معينون",
+      "edit": "تعديل",
+      "deactivate": "إلغاء التفعيل"
+    },
+    "staff": {
+      "title": "الموظفون",
+      "subtitle": "إدارة الفريق والجدول",
+      "no_staff": "لا يوجد موظفون بعد",
+      "add_first": "أضف أول عضو في الفريق",
+      "role": "الدور",
+      "hours": "ساعات العمل",
+      "blocks": "أوقات محجوزة",
+      "edit": "تعديل",
+      "deactivate": "إلغاء التفعيل",
+      "invite": "دعوة موظف"
+    },
+    "offers": { "title": "العروض", "subtitle": "إدارة العروض", "add": "إضافة عرض", "no_offers": "لا عروض بعد", "discount": "خصم", "percentage": "نسبة", "fixed": "ثابت", "valid_until": "صالح حتى", "reply": "رد", "respond": "رد" },
+    "reviews": { "title": "المراجعات", "subtitle": "مراجعات العملاء", "no_reviews": "لا مراجعات بعد", "your_response": "ردك", "report": "إبلاغ" },
+    "analytics": { "title": "التحليلات", "subtitle": "الحجوزات والإيرادات", "bookings_count": "الحجوزات", "revenue": "الإيرادات", "new_customers": "عملاء جدد", "cancellations": "الإلغاءات", "export_csv": "تصدير CSV" },
+    "subscription": { "title": "الاشتراك", "subtitle": "الخطة والاستخدام", "plan": "الخطة", "status": "الحالة", "period_end": "نهاية الفترة", "usage_staff": "الموظفون", "usage_offers": "العروض", "usage_reminders": "تذكيرات هذا الشهر", "manage_billing": "إدارة الفواتير", "billing_history": "سجل الفواتير" },
+    "settings": { "title": "الإعدادات", "subtitle": "تفضيلات الإشعارات", "email_on_booking": "بريد عند حجز جديد", "sms_on_reminder": "SMS تذكير" }
+  }
+}

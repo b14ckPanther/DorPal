@@ -1,0 +1,19 @@
+{
+  "search": {
+    "placeholder": "ابحث بالاسم أو الخدمة أو الموقع...",
+    "filters": "الفلاتر",
+    "button": "بحث",
+    "locality": "المدينة",
+    "category": "الفئة",
+    "sort_label": "ترتيب حسب",
+    "sort_rating": "الأعلى تقييماً",
+    "sort_newest": "الأحدث",
+    "sort_name": "الاسم أ-ي",
+    "has_offers": "لديه عروض",
+    "clear_filters": "مسح الفلاتر",
+    "results_count": "تم العثور على {count} نشاط تجاري",
+    "no_results": "لم يتم العثور على نتائج",
+    "no_results_hint": "جرّب تعديل الفلاتر أو مصطلح البحث",
+    "book_now": "احجز الآن"
+  }
+}

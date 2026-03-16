@@ -1,0 +1,19 @@
+{
+  "search": {
+    "placeholder": "Search by name, service, or location...",
+    "filters": "Filters",
+    "button": "Search",
+    "locality": "City",
+    "category": "Category",
+    "sort_label": "Sort by",
+    "sort_rating": "Top Rated",
+    "sort_newest": "Newest",
+    "sort_name": "Name A-Z",
+    "has_offers": "Has Offers",
+    "clear_filters": "Clear filters",
+    "results_count": "{count} businesses found",
+    "no_results": "No businesses found",
+    "no_results_hint": "Try adjusting your filters or search term",
+    "book_now": "Book Now"
+  }
+}

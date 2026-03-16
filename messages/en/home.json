@@ -1,0 +1,67 @@
+{
+  "home": {
+    "hero": {
+      "eyebrow": "The #1 booking platform",
+      "title": "Find & Book",
+      "title_highlight": "Beauty Services",
+      "subtitle": "Discover top-rated salons, barbers, and spas near you. Book appointments instantly, anytime.",
+      "floating_confirmed": "Booking Confirmed",
+      "floating_confirmed_sub": "Your booking was confirmed",
+      "floating_rating_sub": "200+ reviews",
+      "stats": {
+        "businesses": "Businesses",
+        "businesses_value": "200+",
+        "bookings": "Bookings made",
+        "bookings_value": "5,000+",
+        "cities": "Cities",
+        "cities_value": "50+"
+      }
+    },
+    "search": {
+      "placeholder": "Search salons, barbers, spas...",
+      "all_localities": "All Cities",
+      "all_categories": "All Services",
+      "button": "Search"
+    },
+    "categories": {
+      "title": "What are you looking for?",
+      "subtitle": "From haircuts to full spa days, find the perfect service for you"
+    },
+    "featured": {
+      "title": "Top Rated Near You",
+      "subtitle": "Handpicked businesses with exceptional reviews"
+    },
+    "how_it_works": {
+      "title": "Booking made simple",
+      "step1": {
+        "title": "Search & Discover",
+        "desc": "Browse thousands of beauty and care businesses"
+      },
+      "step2": {
+        "title": "Choose Your Service",
+        "desc": "Select services, staff, and the perfect time slot"
+      },
+      "step3": {
+        "title": "Instant Confirmation",
+        "desc": "Get confirmed instantly with reminders sent to you"
+      }
+    },
+    "testimonials": {
+      "title": "Loved by thousands"
+    },
+    "for_business": {
+      "title": "Grow your business with DorPal",
+      "subtitle": "Join hundreds of beauty professionals who trust DorPal to manage their business and attract new clients",
+      "feature1": "Smart Booking System — automated scheduling that works 24/7",
+      "feature2": "Client Management — full history, preferences, and reminders",
+      "feature3": "Business Analytics — understand your revenue and top services",
+      "cta": "Get Started Free"
+    },
+    "footer": {
+      "tagline": "Your go-to booking platform. We connect customers with the best salons and care centers.",
+      "rights": "All rights reserved",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    }
+  }
+}

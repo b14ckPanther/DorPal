@@ -1,0 +1,34 @@
+{
+  "admin": {
+    "nav": {
+      "applications": "בקשות",
+      "businesses": "עסקים",
+      "users": "משתמשים",
+      "reviews": "ביקורות",
+      "subscriptions": "מנויים",
+      "audit": "יומן ביקורת"
+    },
+    "applications": {
+      "title": "בקשות הצטרפות",
+      "pending": "ממתין",
+      "approved": "אושר",
+      "rejected": "נדחה",
+      "approve": "אשר",
+      "reject": "דחה",
+      "view": "הצג פרטים",
+      "no_applications": "לא נמצאו בקשות"
+    },
+    "businesses": {
+      "title": "כל העסקים",
+      "suspend": "השהה",
+      "activate": "הפעל",
+      "feature": "הדגש",
+      "unfeature": "הסר הדגשה"
+    },
+    "users": {
+      "title": "כל המשתמשים",
+      "ban": "חסום",
+      "unban": "הסר חסימה"
+    }
+  }
+}

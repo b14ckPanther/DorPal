@@ -1,0 +1,34 @@
+{
+  "admin": {
+    "nav": {
+      "applications": "Applications",
+      "businesses": "Businesses",
+      "users": "Users",
+      "reviews": "Reviews",
+      "subscriptions": "Subscriptions",
+      "audit": "Audit log"
+    },
+    "applications": {
+      "title": "Business Applications",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "approve": "Approve",
+      "reject": "Reject",
+      "view": "View Details",
+      "no_applications": "No applications found"
+    },
+    "businesses": {
+      "title": "All Businesses",
+      "suspend": "Suspend",
+      "activate": "Activate",
+      "feature": "Feature",
+      "unfeature": "Unfeature"
+    },
+    "users": {
+      "title": "All Users",
+      "ban": "Ban User",
+      "unban": "Unban"
+    }
+  }
+}

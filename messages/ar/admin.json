@@ -1,0 +1,34 @@
+{
+  "admin": {
+    "nav": {
+      "applications": "الطلبات",
+      "businesses": "الأنشطة التجارية",
+      "users": "المستخدمون",
+      "reviews": "المراجعات",
+      "subscriptions": "الاشتراكات",
+      "audit": "سجل التدقيق"
+    },
+    "applications": {
+      "title": "طلبات الانضمام",
+      "pending": "قيد الانتظار",
+      "approved": "مقبول",
+      "rejected": "مرفوض",
+      "approve": "قبول",
+      "reject": "رفض",
+      "view": "عرض التفاصيل",
+      "no_applications": "لا توجد طلبات"
+    },
+    "businesses": {
+      "title": "جميع الأنشطة التجارية",
+      "suspend": "تعليق",
+      "activate": "تفعيل",
+      "feature": "تمييز",
+      "unfeature": "إلغاء التمييز"
+    },
+    "users": {
+      "title": "جميع المستخدمين",
+      "ban": "حظر",
+      "unban": "رفع الحظر"
+    }
+  }
+}
