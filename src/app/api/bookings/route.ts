@@ -160,7 +160,7 @@ export async function POST(req: Request) {
 
     let clientSecret: string | null = null;
 
-    if (depositRequired && depositAmount > 0 && process.env.STRIPE_SECRET_KEY) {
+    if (depositRequired && depositAmountTotal > 0 && process.env.STRIPE_SECRET_KEY) {
       const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
         apiVersion: "2024-06-20",
       });
