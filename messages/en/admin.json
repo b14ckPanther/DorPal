@@ -1,5 +1,7 @@
 {
   "admin": {
+    "search_placeholder": "Search admin...",
+    "back_to_dashboard": "Dashboard",
     "nav": {
       "applications": "Applications",
       "businesses": "Businesses",
@@ -10,13 +12,23 @@
     },
     "applications": {
       "title": "Business Applications",
+      "pending_review": "applications pending review",
       "pending": "Pending",
       "approved": "Approved",
       "rejected": "Rejected",
       "approve": "Approve",
       "reject": "Reject",
       "view": "View Details",
-      "no_applications": "No applications found"
+      "no_applications": "No applications found",
+      "applicant": "Applicant",
+      "business": "Business",
+      "location": "Location",
+      "status": "Status",
+      "actions": "Actions",
+      "business_name": "Business",
+      "category": "Category",
+      "date": "Date",
+      "applicant_message": "Description"
     },
     "businesses": {
       "title": "All Businesses",

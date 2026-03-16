@@ -38,11 +38,11 @@ const ubuntu = Ubuntu({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | دور بال",
-    default: "دور بال — احجز موعدك",
+    template: "%s | DorPal",
+    default: "DorPal — Your Booking Companion",
   },
   description:
-    "اكتشف أفضل صالونات التجميل ومراكز العناية واحجز موعدك بسهولة وسرعة",
+    "Discover and book beauty and wellness services near you with ease and speed",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
 };
 
@@ -70,7 +70,11 @@ export default async function LocaleLayout({
         : "font-en";
 
   return (
-    <div className={`${cairo.variable} ${heebo.variable} ${ubuntu.variable} ${fontClass} antialiased min-h-screen`}>
+    <div
+      dir={dir}
+      lang={locale}
+      className={`${cairo.variable} ${heebo.variable} ${ubuntu.variable} ${fontClass} antialiased min-h-screen`}
+    >
       <NextIntlClientProvider messages={messages}>
         <QueryProvider>
           <AuthProvider>

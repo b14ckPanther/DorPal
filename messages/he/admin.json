@@ -1,5 +1,7 @@
 {
   "admin": {
+    "search_placeholder": "חיפוש בלוח ניהול...",
+    "back_to_dashboard": "לוח ניהול",
     "nav": {
       "applications": "בקשות",
       "businesses": "עסקים",
@@ -10,13 +12,23 @@
     },
     "applications": {
       "title": "בקשות הצטרפות",
+      "pending_review": "בקשות ממתינות",
       "pending": "ממתין",
       "approved": "אושר",
       "rejected": "נדחה",
       "approve": "אשר",
       "reject": "דחה",
       "view": "הצג פרטים",
-      "no_applications": "לא נמצאו בקשות"
+      "no_applications": "לא נמצאו בקשות",
+      "applicant": "מגיש",
+      "business": "עסק",
+      "location": "מיקום",
+      "status": "סטטוס",
+      "actions": "פעולות",
+      "business_name": "שם העסק",
+      "category": "קטגוריה",
+      "date": "תאריך",
+      "applicant_message": "תיאור המבקש"
     },
     "businesses": {
       "title": "כל העסקים",

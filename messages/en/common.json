@@ -4,6 +4,7 @@
     "error": "Something went wrong",
     "retry": "Try again",
     "save": "Save",
+    "add": "Add",
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
@@ -51,6 +52,28 @@
     "per_month": "/ month",
     "anonymous": "Customer",
     "friend": "friend",
+    "today": "Today",
+    "account_info": "Account",
+    "name": "Name",
+    "role": "Role",
+    "days": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday"
+    },
+    "days_short": {
+      "sunday": "Sun",
+      "monday": "Mon",
+      "tuesday": "Tue",
+      "wednesday": "Wed",
+      "thursday": "Thu",
+      "friday": "Fri",
+      "saturday": "Sat"
+    },
     "full_name": "Full name",
     "email": "Email",
     "phone": "Phone"

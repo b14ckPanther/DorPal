@@ -4,6 +4,7 @@
     "error": "משהו השתבש",
     "retry": "נסה שוב",
     "save": "שמור",
+    "add": "הוסף",
     "cancel": "ביטול",
     "delete": "מחק",
     "edit": "ערוך",
@@ -51,6 +52,28 @@
     "per_month": "/ חודש",
     "anonymous": "לקוח",
     "friend": "חבר",
+    "today": "היום",
+    "account_info": "פרטי חשבון",
+    "name": "שם",
+    "role": "תפקיד",
+    "days": {
+      "sunday": "ראשון",
+      "monday": "שני",
+      "tuesday": "שלישי",
+      "wednesday": "רביעי",
+      "thursday": "חמישי",
+      "friday": "שישי",
+      "saturday": "שבת"
+    },
+    "days_short": {
+      "sunday": "א'",
+      "monday": "ב'",
+      "tuesday": "ג'",
+      "wednesday": "ד'",
+      "thursday": "ה'",
+      "friday": "ו'",
+      "saturday": "שבת"
+    },
     "full_name": "שם מלא",
     "email": "אימייל",
     "phone": "טלפון"

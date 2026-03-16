@@ -9,22 +9,20 @@ import { cn } from "@/lib/utils";
 import type { DashboardStaff, StaffHourRow, BlockedSlotRow } from "@/lib/supabase/queries";
 import { Users, Plus, Pencil, X, Clock, Ban } from "lucide-react";
 
-const DAYS: { d: number; en: string; ar: string; he: string }[] = [
-  { d: 0, en: "Sun", ar: "أحد", he: "א'" },
-  { d: 1, en: "Mon", ar: "إثنين", he: "ב'" },
-  { d: 2, en: "Tue", ar: "ثلاثاء", he: "ג'" },
-  { d: 3, en: "Wed", ar: "أربعاء", he: "ד'" },
-  { d: 4, en: "Thu", ar: "خميس", he: "ה'" },
-  { d: 5, en: "Fri", ar: "جمعة", he: "ו'" },
-  { d: 6, en: "Sat", ar: "سبت", he: "שבת" },
+const DAYS: { d: number; key: string }[] = [
+  { d: 0, key: "sunday" },
+  { d: 1, key: "monday" },
+  { d: 2, key: "tuesday" },
+  { d: 3, key: "wednesday" },
+  { d: 4, key: "thursday" },
+  { d: 5, key: "friday" },
+  { d: 6, key: "saturday" },
 ];
 
-function dayLabel(d: number, locale: string) {
+function dayLabel(d: number, t: ReturnType<typeof useTranslations>) {
   const row = DAYS.find((x) => x.d === d);
   if (!row) return "";
-  if (locale === "ar") return row.ar;
-  if (locale === "he") return row.he;
-  return row.en;
+  return t(`common.days_short.${row.key}` as "common.days_short.sunday");
 }
 
 type Props = {
@@ -183,7 +181,7 @@ export function DashboardStaffPage({ locale, initialStaff, isOwner, staffMemberI
   }
 
   async function handleDeactivate(id: string) {
-    if (!confirm(locale === "ar" ? "إلغاء تفعيل هذا الموظف؟" : locale === "he" ? "לבטל הפעלת חבר צוות זה?" : "Deactivate this staff member?")) return;
+    if (!confirm(t("dashboard.staff.confirm_deactivate"))) return;
     startTransition(async () => {
       try {
         const res = await fetch(`/api/dashboard/staff/${id}`, { method: "DELETE" });
@@ -347,7 +345,7 @@ export function DashboardStaffPage({ locale, initialStaff, isOwner, staffMemberI
                     <div className="space-y-2">
                       {form.hours.map((h, i) => (
                         <div key={h.day_of_week} className="flex items-center gap-2 text-sm">
-                          <span className="w-16">{dayLabel(h.day_of_week, locale)}</span>
+                          <span className="w-16">{dayLabel(h.day_of_week, t)}</span>
                           <Input type="time" value={h.start_time} onChange={(e) => setForm((f) => ({ ...f, hours: f.hours.map((x, j) => (j === i ? { ...x, start_time: e.target.value } : x)) }))} className="flex-1" />
                           <Input type="time" value={h.end_time} onChange={(e) => setForm((f) => ({ ...f, hours: f.hours.map((x, j) => (j === i ? { ...x, end_time: e.target.value } : x)) }))} className="flex-1" />
                         </div>
@@ -381,7 +379,7 @@ export function DashboardStaffPage({ locale, initialStaff, isOwner, staffMemberI
               {error && <p className="text-sm text-dp-error">{error}</p>}
               <div className="flex gap-2 pt-2">
                 <Button type="submit" disabled={isPending}>
-                  {editingId ? (locale === "ar" ? "حفظ" : locale === "he" ? "שמור" : "Save") : (locale === "ar" ? "إضافة" : locale === "he" ? "הוסף" : "Add")}
+                  {editingId ? t("common.save") : t("common.add")}
                 </Button>
                 <Button type="button" variant="secondary" onClick={closeDrawer}>
                   {t("actions.cancel")}

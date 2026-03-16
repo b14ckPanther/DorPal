@@ -60,7 +60,7 @@ export function DashboardShell({ locale, businessName, children }: DashboardShel
   const displayName =
     businessName?.trim() ||
     profile?.full_name?.trim() ||
-    (locale === "ar" ? "العمل الخاص بك" : locale === "he" ? "העסק שלך" : "Your business");
+    t("dashboard.shell.your_business");
 
   const SidebarContent = (
     <div className="flex flex-col h-full">
@@ -211,7 +211,7 @@ export function DashboardShell({ locale, businessName, children }: DashboardShel
           <Button variant="outline" size="sm" className="hidden sm:flex gap-1.5" asChild>
             <Link href={`/${locale}/business/my-business`} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="h-3.5 w-3.5 shrink-0" />
-              {locale === "ar" ? "عرض الملف" : locale === "he" ? "הצג פרופיל" : "View Profile"}
+              {t("dashboard.shell.view_profile")}
             </Link>
           </Button>
 
@@ -220,7 +220,7 @@ export function DashboardShell({ locale, businessName, children }: DashboardShel
             <button
               className="relative h-9 w-9 rounded-full border border-dp-border flex items-center justify-center hover:bg-dp-surface-alt transition-colors"
               onClick={() => setNotificationsOpen((open) => !open)}
-              aria-label={locale === "ar" ? "الإشعارات" : locale === "he" ? "התראות" : "Notifications"}
+              aria-label={t("dashboard.shell.notifications")}
             >
               <Bell className="h-4 w-4 text-dp-text-muted" />
               <span className="absolute -top-0.5 -end-0.5 h-4 w-4 rounded-full bg-dp-error text-white text-[10px] font-bold flex items-center justify-center">
@@ -230,18 +230,10 @@ export function DashboardShell({ locale, businessName, children }: DashboardShel
             {notificationsOpen && (
               <div className="absolute end-0 mt-2 w-64 rounded-card border border-dp-border bg-dp-surface shadow-overlay p-3 text-sm z-40">
                 <p className="font-medium text-dp-text-primary mb-1">
-                  {locale === "ar"
-                    ? "الإشعارات (تجريبية)"
-                    : locale === "he"
-                    ? "התראות (ניסוי)"
-                    : "Notifications (preview)"}
+                  {t("dashboard.shell.notifications_preview")}
                 </p>
                 <p className="text-dp-text-muted">
-                  {locale === "ar"
-                    ? "سيتم تفعيل الإشعارات الحقيقية لاحقًا."
-                    : locale === "he"
-                    ? "התראות אמיתיות יפעלו בהמשך."
-                    : "Real notifications will be wired up later."}
+                  {t("dashboard.shell.notifications_coming_soon")}
                 </p>
               </div>
             )}

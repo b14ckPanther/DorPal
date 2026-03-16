@@ -19,14 +19,14 @@ export function ProfilePageClient({ locale, profile }: { locale: string; profile
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
-            {locale === "ar" ? "معلومات الحساب" : locale === "he" ? "פרטי חשבון" : "Account"}
+            {t("common.account_info")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
-          <p><span className="text-dp-text-muted">{locale === "ar" ? "الاسم" : "Name"}:</span> {profile?.full_name ?? "—"}</p>
-          <p><span className="text-dp-text-muted">{locale === "ar" ? "البريد" : "Email"}:</span> {profile?.email ?? "—"}</p>
-          {profile?.phone && <p><span className="text-dp-text-muted">{locale === "ar" ? "الهاتف" : "Phone"}:</span> {profile.phone}</p>}
-          <p><span className="text-dp-text-muted">{locale === "ar" ? "الدور" : "Role"}:</span> {profile?.role ?? "—"}</p>
+          <p><span className="text-dp-text-muted">{t("common.name")}:</span> {profile?.full_name ?? "—"}</p>
+          <p><span className="text-dp-text-muted">{t("common.email")}:</span> {profile?.email ?? "—"}</p>
+          {profile?.phone && <p><span className="text-dp-text-muted">{t("common.phone")}:</span> {profile.phone}</p>}
+          <p><span className="text-dp-text-muted">{t("common.role")}:</span> {profile?.role ?? "—"}</p>
         </CardContent>
       </Card>
       <div className="flex flex-wrap gap-3">
@@ -43,7 +43,7 @@ export function ProfilePageClient({ locale, profile }: { locale: string; profile
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-iris text-white text-sm font-medium hover:opacity-90"
           >
             <LayoutDashboard className="h-4 w-4" />
-            {locale === "ar" ? "لوحة التحكم" : locale === "he" ? "לוח בקרה" : "Dashboard"}
+            {t("nav.dashboard")}
           </Link>
         )}
         {isAdmin && (

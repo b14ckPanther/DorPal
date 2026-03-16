@@ -1,0 +1,37 @@
+{
+  "legal": {
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "This Privacy Policy explains how DorPal (\"we\", \"us\", or \"our\") collects, uses, and protects your information when you use our website and services.",
+    "information_title": "Information We Collect",
+    "information_body": "We may collect information that you provide directly to us, such as your name, email address, phone number, booking details, and any other information you choose to provide when using our platform.",
+    "use_title": "How We Use Your Information",
+    "use_body": "We use your information to provide and improve our services, manage your bookings, communicate with you, personalize your experience, and comply with legal obligations.",
+    "sharing_title": "Data Sharing",
+    "sharing_body": "We may share your information with service providers and business partners (such as salons and businesses you book with) only as needed to provide our services. We do not sell your personal data.",
+    "security_title": "Data Security",
+    "security_body": "We take reasonable technical and organizational measures to protect your information. However, no method of transmission or storage is completely secure, and we cannot guarantee absolute security.",
+    "rights_title": "Your Rights",
+    "rights_body": "Depending on your jurisdiction, you may have rights to access, update, or delete your personal information, or object to certain processing. To exercise these rights, please contact us using the details provided on our website.",
+    "changes_title": "Changes to This Policy",
+    "changes_body": "We may update this Privacy Policy from time to time. We will post the updated version on this page and update the \"Last updated\" date below.",
+    "last_updated": "Last updated: March 16, 2026"
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "intro": "These Terms of Service (\"Terms\") govern your use of the DorPal platform and services. By accessing or using our website or services, you agree to be bound by these Terms.",
+    "use_title": "Use of the Service",
+    "use_body": "You agree to use DorPal only for lawful purposes and in accordance with these Terms. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.",
+    "bookings_title": "Bookings and Cancellations",
+    "bookings_body": "DorPal connects you with independent businesses and service providers. Each provider may have its own booking, cancellation, and refund policies. It is your responsibility to review and comply with those policies when making a booking.",
+    "liability_title": "Limitation of Liability",
+    "liability_body": "To the maximum extent permitted by law, DorPal is not liable for any indirect, incidental, or consequential damages arising out of or in connection with your use of the platform or services, including any issues related to services provided by third-party businesses.",
+    "changes_title": "Changes to the Service",
+    "changes_body": "We may modify, suspend, or discontinue any part of the service at any time, with or without notice. We may also update these Terms from time to time, and the updated version will be effective when posted on this page.",
+    "law_title": "Governing Law",
+    "law_body": "These Terms are governed by the laws applicable in your jurisdiction, without regard to its conflict of law principles.",
+    "last_updated": "Last updated: March 16, 2026"
+  }
+}
+}
+

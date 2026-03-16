@@ -50,18 +50,43 @@
       "title": "אהוב על אלפים"
     },
     "for_business": {
+      "badge": "לעסקים",
       "title": "צמח את העסק שלך עם DorPal",
       "subtitle": "הצטרף למאות אנשי מקצוע בתחום היופי שסומכים על DorPal לניהול עסקיהם ולמשוך לקוחות חדשים",
       "feature1": "מערכת הזמנות חכמה — תזמון אוטומטי 24/7",
       "feature2": "ניהול לקוחות — היסטוריה מלאה, העדפות, ותזכורות",
       "feature3": "ניתוח עסקי — הבן את ההכנסות והשירותים המובילים",
-      "cta": "התחל בחינם"
+      "cta": "התחל בחינם",
+      "trial_note": "14 ימי ניסיון חינם · ללא כרטיס אשראי",
+      "dashboard_demo": "הצג לוח ניהול",
+      "tiers": {
+        "essential": { "name": "בסיסי" },
+        "growth": { "name": "צמיחה", "tag": "הפופולרי ביותר" },
+        "premium": { "name": "פרמיום" }
+      },
+      "feature_bullets": {
+        "smart_scheduling": "לוח זמנים חכם",
+        "team_management": "ניהול צוות ושירותים",
+        "reports_analytics": "דוחות וסטטיסטיקות",
+        "auto_notifications": "התראות אוטומטיות ללקוחות"
+      }
     },
     "footer": {
       "tagline": "פלטפורמת ההזמנות המובילה. מחברים בין לקוחות למיטב הסלונים ומרכזי הטיפוח.",
       "rights": "כל הזכויות שמורות",
       "privacy": "מדיניות פרטיות",
-      "terms": "תנאי שירות"
+      "terms": "תנאי שירות",
+      "for_customers": "ללקוחות",
+      "customer_search": "חיפוש שירות",
+      "customer_bookings": "ההזמנות שלי",
+      "customer_login": "התחברות",
+      "customer_signup": "יצירת חשבון",
+      "for_businesses": "לעסקים",
+      "business_join": "הצטרפו אלינו",
+      "business_dashboard": "לוח בקרה",
+      "business_pricing": "מסלולי תשלום",
+      "business_help": "מרכז התמיכה",
+      "contact": "צור קשר"
     }
   }
 }

@@ -11,7 +11,17 @@ export default getRequestConfig(async ({ requestLocale }) => {
   }
 
   const [
-    common, nav, home, search, business, booking, auth, dashboard, admin, apply
+    common,
+    nav,
+    home,
+    search,
+    business,
+    booking,
+    auth,
+    dashboard,
+    admin,
+    apply,
+    legal,
   ] = await Promise.all([
     import(`../../messages/${locale}/common.json`),
     import(`../../messages/${locale}/nav.json`),
@@ -23,6 +33,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     import(`../../messages/${locale}/dashboard.json`),
     import(`../../messages/${locale}/admin.json`),
     import(`../../messages/${locale}/apply.json`),
+    import(`../../messages/${locale}/legal.json`),
   ]);
 
   const messages = {
@@ -36,6 +47,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     ...dashboard.default,
     ...admin.default,
     ...apply.default,
+    ...legal.default,
   };
 
   return {

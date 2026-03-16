@@ -51,7 +51,7 @@ const STATS = [
   {
     key: "new_reviews",
     value: "3",
-    change: "اليوم",
+    change: "Today",
     positive: null,
     icon: Users,
     color: "text-brand-plum",
@@ -60,58 +60,58 @@ const STATS = [
 ];
 
 const CHART_DATA = [
-  { day: "الأحد", bookings: 4, revenue: 320 },
-  { day: "الاثنين", bookings: 7, revenue: 580 },
-  { day: "الثلاثاء", bookings: 5, revenue: 420 },
-  { day: "الأربعاء", bookings: 9, revenue: 760 },
-  { day: "الخميس", bookings: 8, revenue: 640 },
-  { day: "الجمعة", bookings: 6, revenue: 480 },
-  { day: "السبت", bookings: 3, revenue: 240 },
+  { day: "Sun", bookings: 4, revenue: 320 },
+  { day: "Mon", bookings: 7, revenue: 580 },
+  { day: "Tue", bookings: 5, revenue: 420 },
+  { day: "Wed", bookings: 9, revenue: 760 },
+  { day: "Thu", bookings: 8, revenue: 640 },
+  { day: "Fri", bookings: 6, revenue: 480 },
+  { day: "Sat", bookings: 3, revenue: 240 },
 ];
 
 const TODAY_BOOKINGS = [
   {
     id: "1",
-    customer: "أحمد الزبيدي",
-    service: "حلاقة كلاسيكية",
+    customer: "Adam Young",
+    service: "Classic Cut",
     time: "10:00",
-    staff: "محمد",
+    staff: "Mike",
     status: "confirmed",
     price: 45,
   },
   {
     id: "2",
-    customer: "عمر سمعان",
-    service: "حلاقة + لحية",
+    customer: "Omar Simon",
+    service: "Hair + Beard",
     time: "11:00",
-    staff: "أحمد",
+    staff: "Ahmad",
     status: "confirmed",
     price: 70,
   },
   {
     id: "3",
-    customer: "يوسف نصر",
-    service: "تهذيب اللحية",
+    customer: "Yousef Nasser",
+    service: "Beard Trim",
     time: "11:30",
-    staff: "محمد",
+    staff: "Mike",
     status: "pending",
     price: 35,
   },
   {
     id: "4",
-    customer: "خالد ابراهيم",
-    service: "حلاقة كلاسيكية",
+    customer: "Khaled Ibrahim",
+    service: "Classic Cut",
     time: "14:00",
-    staff: "خالد",
+    staff: "Khaled",
     status: "cancelled",
     price: 45,
   },
 ];
 
 const STATUS_CONFIG = {
-  confirmed: { icon: CheckCircle2, color: "text-dp-success", bg: "bg-dp-success-bg", label: "مؤكد" },
-  pending: { icon: AlertCircle, color: "text-dp-warning", bg: "bg-dp-warning-bg", label: "قيد الانتظار" },
-  cancelled: { icon: XCircle, color: "text-dp-error", bg: "bg-dp-error-bg", label: "ملغي" },
+  confirmed: { icon: CheckCircle2, color: "text-dp-success", bg: "bg-dp-success-bg" },
+  pending: { icon: AlertCircle, color: "text-dp-warning", bg: "bg-dp-warning-bg" },
+  cancelled: { icon: XCircle, color: "text-dp-error", bg: "bg-dp-error-bg" },
 };
 
 export function DashboardOverview({ locale }: DashboardOverviewProps) {
@@ -174,7 +174,7 @@ export function DashboardOverview({ locale }: DashboardOverviewProps) {
         <Card className="lg:col-span-2">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>{locale === "ar" ? "الحجوزات هذا الأسبوع" : locale === "he" ? "הזמנות השבוע" : "This Week's Bookings"}</CardTitle>
+              <CardTitle>{t("dashboard.overview.week_bookings_title")}</CardTitle>
               <Button variant="ghost" size="sm" asChild>
                 <Link href={`/${locale}/dashboard/analytics`}>
                   {t("common.see_all")}
@@ -216,14 +216,14 @@ export function DashboardOverview({ locale }: DashboardOverviewProps) {
         <Card>
           <CardHeader>
             <CardTitle>
-              {locale === "ar" ? "إجراءات سريعة" : locale === "he" ? "פעולות מהירות" : "Quick Actions"}
+              {t("dashboard.overview.quick_actions_title")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {[
-              { label: locale === "ar" ? "إضافة حجز" : locale === "he" ? "הוסף הזמנה" : "Add Booking", path: "/bookings/new", icon: CalendarCheck, color: "text-brand-iris" },
-              { label: locale === "ar" ? "إضافة خدمة" : locale === "he" ? "הוסף שירות" : "Add Service", path: "/services", icon: Calendar, color: "text-brand-plum" },
-              { label: locale === "ar" ? "إضافة عرض" : locale === "he" ? "הוסף מבצע" : "Add Offer", path: "/offers", icon: Clock, color: "text-dp-warning" },
+              { label: t("dashboard.overview.add_booking"), path: "/bookings/new", icon: CalendarCheck, color: "text-brand-iris" },
+              { label: t("dashboard.actions.add_service"), path: "/services", icon: Calendar, color: "text-brand-plum" },
+              { label: t("dashboard.overview.add_offer"), path: "/offers", icon: Clock, color: "text-dp-warning" },
             ].map((action) => {
               const Icon = action.icon;
               return (
@@ -287,7 +287,7 @@ export function DashboardOverview({ locale }: DashboardOverviewProps) {
                     </div>
                     <div className={cn("flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium", status.bg, status.color)}>
                       <StatusIcon className="h-3 w-3" />
-                      <span className="hidden sm:block">{status.label}</span>
+                      <span className="hidden sm:block">{t(`dashboard.status.${booking.status}`)}</span>
                     </div>
                   </div>
                 </div>

@@ -50,18 +50,43 @@
       "title": "Loved by thousands"
     },
     "for_business": {
+      "badge": "For Businesses",
       "title": "Grow your business with DorPal",
       "subtitle": "Join hundreds of beauty professionals who trust DorPal to manage their business and attract new clients",
       "feature1": "Smart Booking System — automated scheduling that works 24/7",
       "feature2": "Client Management — full history, preferences, and reminders",
       "feature3": "Business Analytics — understand your revenue and top services",
-      "cta": "Get Started Free"
+      "cta": "Get Started Free",
+      "trial_note": "14-day free trial · No credit card required",
+      "dashboard_demo": "View Dashboard Demo",
+      "tiers": {
+        "essential": { "name": "Essential" },
+        "growth": { "name": "Growth", "tag": "Most Popular" },
+        "premium": { "name": "Premium" }
+      },
+      "feature_bullets": {
+        "smart_scheduling": "Smart scheduling",
+        "team_management": "Team & service management",
+        "reports_analytics": "Reports & analytics",
+        "auto_notifications": "Automatic client notifications"
+      }
     },
     "footer": {
       "tagline": "Your go-to booking platform. We connect customers with the best salons and care centers.",
       "rights": "All rights reserved",
       "privacy": "Privacy Policy",
-      "terms": "Terms of Service"
+      "terms": "Terms of Service",
+      "for_customers": "For customers",
+      "customer_search": "Find a service",
+      "customer_bookings": "My bookings",
+      "customer_login": "Login",
+      "customer_signup": "Create account",
+      "for_businesses": "For businesses",
+      "business_join": "Join us",
+      "business_dashboard": "Dashboard",
+      "business_pricing": "Pricing plans",
+      "business_help": "Help center",
+      "contact": "Contact us"
     }
   }
 }

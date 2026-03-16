@@ -139,7 +139,7 @@ export function DashboardSchedulePage({ locale, staffList, businessSlug }: Props
               <ChevronLeft className="h-4 w-4" />
             </Button>
             <Button variant="ghost" size="sm" onClick={today}>
-              {locale === "ar" ? "اليوم" : locale === "he" ? "היום" : "Today"}
+              {t("common.today")}
             </Button>
             <Button variant="ghost" size="icon-sm" onClick={next}>
               <ChevronRight className="h-4 w-4" />

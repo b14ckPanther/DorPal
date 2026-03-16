@@ -24,22 +24,22 @@ const FEATURES = [
 
 const TIERS = [
   {
-    name: { ar: "أساسي", he: "בסיסי", en: "Essential" },
+    nameKey: "home.for_business.tiers.essential.name",
     price: 49,
     color: "border-dp-border",
-    tag: null,
+    tagKey: null,
   },
   {
-    name: { ar: "نمو", he: "צמיחה", en: "Growth" },
+    nameKey: "home.for_business.tiers.growth.name",
     price: 99,
     color: "border-brand-iris",
-    tag: { ar: "الأكثر شيوعاً", he: "הפופולרי ביותר", en: "Most Popular" },
+    tagKey: "home.for_business.tiers.growth.tag",
   },
   {
-    name: { ar: "مميز", he: "פרמיום", en: "Premium" },
+    nameKey: "home.for_business.tiers.premium.name",
     price: 199,
     color: "border-brand-plum",
-    tag: null,
+    tagKey: null,
   },
 ];
 
@@ -69,11 +69,7 @@ export async function ForBusinessSection({ locale }: ForBusinessSectionProps) {
           <div className="mb-12 lg:mb-0">
             <div className="inline-flex items-center gap-2 bg-brand-iris/20 border border-brand-iris/30 rounded-full px-4 py-1.5 mb-6">
               <span className="text-sm font-medium text-brand-iris">
-                {locale === "ar"
-                  ? "للأعمال التجارية"
-                  : locale === "he"
-                    ? "לעסקים"
-                    : "For Businesses"}
+                {t("home.for_business.badge")}
               </span>
             </div>
 
@@ -102,11 +98,7 @@ export async function ForBusinessSection({ locale }: ForBusinessSectionProps) {
             <div className="flex items-center gap-2 text-white/50 text-sm mb-8">
               <Clock className="h-4 w-4" />
               <span>
-                {locale === "ar"
-                  ? "تجربة مجانية 14 يوم · لا يتطلب بطاقة ائتمان"
-                  : locale === "he"
-                    ? "14 ימי ניסיון חינם · ללא כרטיס אשראי"
-                    : "14-day free trial · No credit card required"}
+                {t("home.for_business.trial_note")}
               </span>
             </div>
 
@@ -124,11 +116,7 @@ export async function ForBusinessSection({ locale }: ForBusinessSectionProps) {
                 asChild
               >
                 <Link href={`/${locale}/dashboard`}>
-                  {locale === "ar"
-                    ? "عرض لوحة التحكم"
-                    : locale === "he"
-                      ? "הצג לוח ניהול"
-                      : "View Dashboard Demo"}
+                  {t("home.for_business.dashboard_demo")}
                 </Link>
               </Button>
             </div>
@@ -137,19 +125,8 @@ export async function ForBusinessSection({ locale }: ForBusinessSectionProps) {
           {/* Right / Pricing preview */}
           <div className="grid grid-cols-3 gap-3">
             {TIERS.map((tier) => {
-              const name =
-                locale === "ar"
-                  ? tier.name.ar
-                  : locale === "he"
-                    ? tier.name.he
-                    : tier.name.en;
-              const tagLabel = tier.tag
-                ? locale === "ar"
-                  ? tier.tag.ar
-                  : locale === "he"
-                    ? tier.tag.he
-                    : tier.tag.en
-                : null;
+              const name = t(tier.nameKey);
+              const tagLabel = tier.tagKey ? t(tier.tagKey) : null;
 
               return (
                 <div
@@ -157,7 +134,7 @@ export async function ForBusinessSection({ locale }: ForBusinessSectionProps) {
                   className={cn(
                     "relative bg-white/5 border rounded-card p-4 text-center",
                     tier.color,
-                    tier.tag && "bg-white/10"
+                    tier.tagKey && "bg-white/10"
                   )}
                 >
                   {tagLabel && (
@@ -181,35 +158,15 @@ export async function ForBusinessSection({ locale }: ForBusinessSectionProps) {
             {/* Feature bullets */}
             <div className="col-span-3 bg-white/5 border border-white/10 rounded-card p-4 space-y-2.5">
               {[
-                {
-                  ar: "جدول المواعيد الذكي",
-                  he: "לוח זמנים חכם",
-                  en: "Smart scheduling",
-                },
-                {
-                  ar: "إدارة الفريق والخدمات",
-                  he: "ניהול צוות ושירותים",
-                  en: "Team & service management",
-                },
-                {
-                  ar: "تقارير وإحصائيات",
-                  he: "דוחות וסטטיסטיקות",
-                  en: "Reports & analytics",
-                },
-                {
-                  ar: "إشعارات تلقائية للعملاء",
-                  he: "התראות אוטומטיות ללקוחות",
-                  en: "Automatic client notifications",
-                },
-              ].map((feature, i) => (
+                "home.for_business.feature_bullets.smart_scheduling",
+                "home.for_business.feature_bullets.team_management",
+                "home.for_business.feature_bullets.reports_analytics",
+                "home.for_business.feature_bullets.auto_notifications",
+              ].map((featureKey, i) => (
                 <div key={i} className="flex items-center gap-2.5 text-sm">
                   <CheckCircle2 className="h-4 w-4 text-brand-iris shrink-0" />
                   <span className="text-white/70">
-                    {locale === "ar"
-                      ? feature.ar
-                      : locale === "he"
-                        ? feature.he
-                        : feature.en}
+                    {t(featureKey)}
                   </span>
                 </div>
               ))}

@@ -199,11 +199,7 @@ export function ApplyPageContent({ locale, localities, categories }: ApplyPageCo
                           className="w-full h-11 border border-dp-border rounded-card-sm ps-10 pe-4 bg-dp-surface text-sm text-dp-text-primary focus:outline-none focus:ring-2 focus:ring-brand-iris appearance-none"
                         >
                           <option value="">
-                            {locale === "ar"
-                              ? "اختر الفئة"
-                              : locale === "he"
-                                ? "בחר קטגוריה"
-                                : "Select category"}
+                            {t("apply.select_category")}
                           </option>
                           {categories.map((cat) => (
                             <option key={cat.id} value={cat.id}>
@@ -227,11 +223,7 @@ export function ApplyPageContent({ locale, localities, categories }: ApplyPageCo
                           className="w-full h-11 border border-dp-border rounded-card-sm ps-10 pe-4 bg-dp-surface text-sm text-dp-text-primary focus:outline-none focus:ring-2 focus:ring-brand-iris appearance-none"
                         >
                           <option value="">
-                            {locale === "ar"
-                              ? "اختر الموقع"
-                              : locale === "he"
-                                ? "בחר מיקום"
-                                : "Select location"}
+                            {t("apply.select_location")}
                           </option>
                           {localities.map((loc) => (
                             <option key={loc.id} value={loc.id}>

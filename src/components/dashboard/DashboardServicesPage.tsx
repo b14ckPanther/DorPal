@@ -160,7 +160,7 @@ export function DashboardServicesPage({ locale, initialServices, staffList, isOw
   }
 
   async function handleDeactivate(id: string) {
-    if (!confirm(locale === "ar" ? "إلغاء تفعيل هذه الخدمة؟" : locale === "he" ? "לבטל הפעלת שירות זה?" : "Deactivate this service?")) return;
+    if (!confirm(t("dashboard.services.confirm_deactivate"))) return;
     startTransition(async () => {
       try {
         const res = await fetch(`/api/dashboard/services/${id}`, { method: "DELETE" });
@@ -330,7 +330,7 @@ export function DashboardServicesPage({ locale, initialServices, staffList, isOw
               {error && <p className="text-sm text-dp-error">{error}</p>}
               <div className="flex gap-2 pt-2">
                 <Button type="submit" disabled={isPending}>
-                  {editingId ? (locale === "ar" ? "حفظ" : locale === "he" ? "שמור" : "Save") : (locale === "ar" ? "إضافة" : locale === "he" ? "הוסף" : "Add")}
+                  {editingId ? t("common.save") : t("common.add")}
                 </Button>
                 <Button type="button" variant="secondary" onClick={closeDrawer}>
                   {t("actions.cancel")}

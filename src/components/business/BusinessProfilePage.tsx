@@ -20,10 +20,6 @@ interface BusinessProfilePageProps {
   business: BusinessProfile | null;
 }
 
-const DAYS_AR = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
-const DAYS_HE = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
-const DAYS_EN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
 export function BusinessProfilePage({ locale, slug, business }: BusinessProfilePageProps) {
   const t = useTranslations();
   const [activeTab, setActiveTab] = useState<"services" | "staff" | "reviews" | "hours">("services");
@@ -32,8 +28,15 @@ export function BusinessProfilePage({ locale, slug, business }: BusinessProfileP
   const ChevIcon = locale === "en" ? ChevronRight : ChevronLeft;
   const today = new Date().getDay();
 
-  const getDays = () =>
-    locale === "ar" ? DAYS_AR : locale === "he" ? DAYS_HE : DAYS_EN;
+  const getDays = () => [
+    t("common.days.sunday"),
+    t("common.days.monday"),
+    t("common.days.tuesday"),
+    t("common.days.wednesday"),
+    t("common.days.thursday"),
+    t("common.days.friday"),
+    t("common.days.saturday"),
+  ];
 
   if (!business) {
     return (
@@ -108,11 +111,11 @@ export function BusinessProfilePage({ locale, slug, business }: BusinessProfileP
         <div className="absolute top-4 start-4">
           <div className="flex items-center gap-1 text-white/70 text-xs">
             <Link href={`/${locale}`} className="hover:text-white transition-colors">
-              {locale === "ar" ? "الرئيسية" : locale === "he" ? "בית" : "Home"}
+              {t("nav.home")}
             </Link>
             <ChevIcon className="h-3 w-3" />
             <Link href={`/${locale}/search`} className="hover:text-white transition-colors">
-              {locale === "ar" ? "البحث" : locale === "he" ? "חיפוש" : "Search"}
+              {t("nav.search")}
             </Link>
             <ChevIcon className="h-3 w-3" />
             <span className="text-white truncate max-w-[120px]">{bizName}</span>
@@ -473,7 +476,7 @@ export function BusinessProfilePage({ locale, slug, business }: BusinessProfileP
                             {dayName}
                             {isToday && (
                               <span className="ms-2 text-xs">
-                                {locale === "ar" ? "(اليوم)" : locale === "he" ? "(היום)" : "(Today)"}
+                                ({t("common.today")})
                               </span>
                             )}
                           </span>

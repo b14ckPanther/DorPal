@@ -14,14 +14,29 @@
       "subscription": "Subscription",
       "settings": "Settings"
     },
+    "profile": {
+      "title": "Business profile",
+      "subtitle": "Update your business details and opening hours.",
+      "identity": "Business identity",
+      "opening_hours": "Opening hours",
+      "day": "Day",
+      "saved": "Profile saved",
+      "saving": "Saving...",
+      "save_changes": "Save changes"
+    },
     "overview": {
       "today_bookings": "Today's Bookings",
       "revenue": "This Month's Revenue",
       "rating": "Average Rating",
-      "new_reviews": "New Reviews"
+      "new_reviews": "New Reviews",
+      "week_bookings_title": "This Week's Bookings",
+      "quick_actions_title": "Quick Actions",
+      "add_booking": "Add Booking",
+      "add_offer": "Add Offer"
     },
     "bookings": {
       "title": "All Bookings",
+      "apply_filters": "Apply",
       "upcoming": "Upcoming",
       "no_bookings": "No bookings yet",
       "no_bookings_hint": "Bookings will appear here once clients start booking",
@@ -70,7 +85,8 @@
       "active": "Active",
       "staff_assigned": "Staff assigned",
       "edit": "Edit",
-      "deactivate": "Deactivate"
+      "deactivate": "Deactivate",
+      "confirm_deactivate": "Deactivate this service?"
     },
     "staff": {
       "title": "Staff",
@@ -82,7 +98,8 @@
       "blocks": "Blocked slots",
       "edit": "Edit",
       "deactivate": "Deactivate",
-      "invite": "Invite staff"
+      "invite": "Invite staff",
+      "confirm_deactivate": "Deactivate this staff member?"
     },
     "offers": {
       "title": "Offers",
@@ -129,6 +146,13 @@
       "subtitle": "Notification preferences",
       "email_on_booking": "Email on new booking",
       "sms_on_reminder": "SMS reminder"
+    },
+    "shell": {
+      "your_business": "Your business",
+      "view_profile": "View Profile",
+      "notifications": "Notifications",
+      "notifications_preview": "Notifications (preview)",
+      "notifications_coming_soon": "Real notifications will be wired up later."
     }
   }
 }

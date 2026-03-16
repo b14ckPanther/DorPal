@@ -1,5 +1,7 @@
 {
   "admin": {
+    "search_placeholder": "بحث في لوحة الإدارة...",
+    "back_to_dashboard": "لوحة الأعمال",
     "nav": {
       "applications": "الطلبات",
       "businesses": "الأنشطة التجارية",
@@ -10,13 +12,23 @@
     },
     "applications": {
       "title": "طلبات الانضمام",
+      "pending_review": "طلب ينتظر المراجعة",
       "pending": "قيد الانتظار",
       "approved": "مقبول",
       "rejected": "مرفوض",
       "approve": "قبول",
       "reject": "رفض",
       "view": "عرض التفاصيل",
-      "no_applications": "لا توجد طلبات"
+      "no_applications": "لا توجد طلبات",
+      "applicant": "المتقدم",
+      "business": "العمل",
+      "location": "الموقع",
+      "status": "الحالة",
+      "actions": "الإجراءات",
+      "business_name": "اسم العمل",
+      "category": "الفئة",
+      "date": "التاريخ",
+      "applicant_message": "رسالة المتقدم"
     },
     "businesses": {
       "title": "جميع الأنشطة التجارية",

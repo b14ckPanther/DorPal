@@ -146,7 +146,7 @@ export function AdminShell({ locale, children }: AdminShellProps) {
           <div className="hidden sm:flex flex-1 relative max-w-xs">
             <Search className="absolute inset-y-0 start-3 my-auto h-4 w-4 text-dp-text-muted pointer-events-none" />
             <input
-              placeholder={locale === "ar" ? "بحث في لوحة الإدارة..." : locale === "he" ? "חיפוש בלוח ניהול..." : "Search admin..."}
+              placeholder={t("admin.search_placeholder")}
               className="w-full h-9 ps-9 pe-4 bg-dp-surface-alt rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-iris/30"
             />
           </div>
@@ -165,7 +165,7 @@ export function AdminShell({ locale, children }: AdminShellProps) {
           <Button variant="plum" size="sm" className="hidden sm:flex gap-1.5" asChild>
             <Link href={`/${locale}/dashboard`}>
               <Shield className="h-3.5 w-3.5" />
-              {locale === "ar" ? "لوحة الأعمال" : locale === "he" ? "לוח ניהול" : "Dashboard"}
+              {t("admin.back_to_dashboard")}
             </Link>
           </Button>
         </header>

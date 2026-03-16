@@ -4,6 +4,7 @@
     "error": "حدث خطأ ما",
     "retry": "حاول مرة أخرى",
     "save": "حفظ",
+    "add": "إضافة",
     "cancel": "إلغاء",
     "delete": "حذف",
     "edit": "تعديل",
@@ -51,6 +52,28 @@
     "per_month": "/ شهر",
     "anonymous": "عميل",
     "friend": "صديقنا",
+    "today": "اليوم",
+    "account_info": "معلومات الحساب",
+    "name": "الاسم",
+    "role": "الدور",
+    "days": {
+      "sunday": "الأحد",
+      "monday": "الاثنين",
+      "tuesday": "الثلاثاء",
+      "wednesday": "الأربعاء",
+      "thursday": "الخميس",
+      "friday": "الجمعة",
+      "saturday": "السبت"
+    },
+    "days_short": {
+      "sunday": "أحد",
+      "monday": "إثنين",
+      "tuesday": "ثلاثاء",
+      "wednesday": "أربعاء",
+      "thursday": "خميس",
+      "friday": "جمعة",
+      "saturday": "سبت"
+    },
     "full_name": "الاسم الكامل",
     "email": "البريد الإلكتروني",
     "phone": "رقم الهاتف"

@@ -14,14 +14,29 @@
       "subscription": "الاشتراك",
       "settings": "الإعدادات"
     },
+    "profile": {
+      "title": "ملف العمل",
+      "subtitle": "حدّث تفاصيل عملك وساعات العمل",
+      "identity": "هوية العمل",
+      "opening_hours": "ساعات العمل",
+      "day": "اليوم",
+      "saved": "تم حفظ الملف بنجاح",
+      "saving": "يتم الحفظ...",
+      "save_changes": "حفظ التغييرات"
+    },
     "overview": {
       "today_bookings": "حجوزات اليوم",
       "revenue": "إيرادات الشهر",
       "rating": "متوسط التقييم",
-      "new_reviews": "مراجعات جديدة"
+      "new_reviews": "مراجعات جديدة",
+      "week_bookings_title": "الحجوزات هذا الأسبوع",
+      "quick_actions_title": "إجراءات سريعة",
+      "add_booking": "إضافة حجز",
+      "add_offer": "إضافة عرض"
     },
     "bookings": {
       "title": "جميع الحجوزات",
+      "apply_filters": "تطبيق",
       "upcoming": "القادمة",
       "no_bookings": "لا توجد حجوزات بعد",
       "no_bookings_hint": "ستظهر الحجوزات هنا عندما يبدأ العملاء بالحجز",
@@ -70,7 +85,8 @@
       "active": "نشط",
       "staff_assigned": "موظفون معينون",
       "edit": "تعديل",
-      "deactivate": "إلغاء التفعيل"
+      "deactivate": "إلغاء التفعيل",
+      "confirm_deactivate": "إلغاء تفعيل هذه الخدمة؟"
     },
     "staff": {
       "title": "الموظفون",
@@ -82,12 +98,20 @@
       "blocks": "أوقات محجوزة",
       "edit": "تعديل",
       "deactivate": "إلغاء التفعيل",
-      "invite": "دعوة موظف"
+      "invite": "دعوة موظف",
+      "confirm_deactivate": "إلغاء تفعيل هذا الموظف؟"
     },
     "offers": { "title": "العروض", "subtitle": "إدارة العروض", "add": "إضافة عرض", "no_offers": "لا عروض بعد", "discount": "خصم", "percentage": "نسبة", "fixed": "ثابت", "valid_until": "صالح حتى", "reply": "رد", "respond": "رد" },
     "reviews": { "title": "المراجعات", "subtitle": "مراجعات العملاء", "no_reviews": "لا مراجعات بعد", "your_response": "ردك", "report": "إبلاغ" },
     "analytics": { "title": "التحليلات", "subtitle": "الحجوزات والإيرادات", "bookings_count": "الحجوزات", "revenue": "الإيرادات", "new_customers": "عملاء جدد", "cancellations": "الإلغاءات", "export_csv": "تصدير CSV" },
     "subscription": { "title": "الاشتراك", "subtitle": "الخطة والاستخدام", "plan": "الخطة", "status": "الحالة", "period_end": "نهاية الفترة", "usage_staff": "الموظفون", "usage_offers": "العروض", "usage_reminders": "تذكيرات هذا الشهر", "manage_billing": "إدارة الفواتير", "billing_history": "سجل الفواتير" },
-    "settings": { "title": "الإعدادات", "subtitle": "تفضيلات الإشعارات", "email_on_booking": "بريد عند حجز جديد", "sms_on_reminder": "SMS تذكير" }
+    "settings": { "title": "الإعدادات", "subtitle": "تفضيلات الإشعارات", "email_on_booking": "بريد عند حجز جديد", "sms_on_reminder": "SMS تذكير" },
+    "shell": {
+      "your_business": "العمل الخاص بك",
+      "view_profile": "عرض الملف",
+      "notifications": "الإشعارات",
+      "notifications_preview": "الإشعارات (تجريبية)",
+      "notifications_coming_soon": "سيتم تفعيل الإشعارات الحقيقية لاحقًا."
+    }
   }
 }

@@ -27,9 +27,9 @@ interface NavbarProps {
 }
 
 const LOCALES = [
-  { code: "ar", label: "العربية", dir: "rtl" },
-  { code: "he", label: "עברית", dir: "rtl" },
-  { code: "en", label: "English", dir: "ltr" },
+  { code: "ar", labelKey: "nav.ar", dir: "rtl" },
+  { code: "he", labelKey: "nav.he", dir: "rtl" },
+  { code: "en", labelKey: "nav.en", dir: "ltr" },
 ];
 
 export function Navbar({ locale }: NavbarProps) {
@@ -44,6 +44,12 @@ export function Navbar({ locale }: NavbarProps) {
   function switchLocale(newLocale: string) {
     const segments = pathname.split("/");
     segments[1] = newLocale;
+
+    // Keep NEXT_LOCALE cookie in sync so RootLayout picks correct dir/lang
+    if (typeof document !== "undefined") {
+      document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
+    }
+
     router.push(segments.join("/"));
   }
 
@@ -54,6 +60,7 @@ export function Navbar({ locale }: NavbarProps) {
   const isActive = (path: string) =>
     pathname === `/${locale}${path}` ||
     pathname.startsWith(`/${locale}${path}/`);
+  const currentLocale = LOCALES.find((l) => l.code === locale);
 
   return (
     <header className="sticky top-0 z-50 w-full glass border-b border-dp-border/50">
@@ -96,7 +103,7 @@ export function Navbar({ locale }: NavbarProps) {
               <Button variant="ghost" size="sm" className="gap-1.5 text-dp-text-secondary">
                 <Globe className="h-4 w-4" />
                 <span className="hidden sm:block text-sm">
-                  {LOCALES.find((l) => l.code === locale)?.label}
+                  {currentLocale ? t(currentLocale.labelKey) : ""}
                 </span>
                 <ChevronDown className="h-3.5 w-3.5" />
               </Button>
@@ -125,7 +132,7 @@ export function Navbar({ locale }: NavbarProps) {
                         locale === loc.code ? "bg-brand-iris" : "bg-dp-border"
                       )}
                     />
-                    <span dir={loc.dir}>{loc.label}</span>
+                    <span dir={loc.dir}>{t(loc.labelKey)}</span>
                   </DropdownMenu.Item>
                 ))}
               </DropdownMenu.Content>

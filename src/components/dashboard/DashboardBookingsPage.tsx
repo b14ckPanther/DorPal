@@ -107,7 +107,7 @@ export function DashboardBookingsPage({ locale, staffList, serviceList, business
               <option key={s.id} value={s.id}>{s.name_en || s.name_ar || s.name_he}</option>
             ))}
           </select>
-          <Button size="sm" onClick={load} disabled={isPending}>{locale === "ar" ? "تطبيق" : locale === "he" ? "החל" : "Apply"}</Button>
+          <Button size="sm" onClick={load} disabled={isPending}>{t("bookings.apply_filters")}</Button>
         </CardContent>
       </Card>
 

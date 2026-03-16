@@ -18,22 +18,20 @@ type Props = {
   categories: Category[];
 };
 
-const DAYS_LABELS: Record<number, { ar: string; he: string; en: string }> = {
-  0: { en: "Sunday", ar: "الأحد", he: "ראשון" },
-  1: { en: "Monday", ar: "الاثنين", he: "שני" },
-  2: { en: "Tuesday", ar: "الثلاثاء", he: "שלישי" },
-  3: { en: "Wednesday", ar: "الأربعاء", he: "רביעי" },
-  4: { en: "Thursday", ar: "الخميس", he: "חמישי" },
-  5: { en: "Friday", ar: "الجمعة", he: "שישי" },
-  6: { en: "Saturday", ar: "السبت", he: "שבת" },
+const DAYS_LABELS: Record<number, string> = {
+  0: "sunday",
+  1: "monday",
+  2: "tuesday",
+  3: "wednesday",
+  4: "thursday",
+  5: "friday",
+  6: "saturday",
 };
 
-function getLabel(day: number, locale: string) {
-  const labels = DAYS_LABELS[day];
-  if (!labels) return "";
-  if (locale === "ar") return labels.ar;
-  if (locale === "he") return labels.he;
-  return labels.en;
+function getLabel(day: number, t: ReturnType<typeof useTranslations>) {
+  const key = DAYS_LABELS[day];
+  if (!key) return "";
+  return t(`common.days.${key}` as "common.days.sunday");
 }
 
 export function BusinessProfileForm({ locale, business, localities, categories }: Props) {
@@ -143,13 +141,7 @@ export function BusinessProfileForm({ locale, business, localities, categories }
           throw new Error(data.message || "Failed to save profile");
         }
 
-        setSuccess(
-          locale === "ar"
-            ? "تم حفظ الملف بنجاح"
-            : locale === "he"
-            ? "הפרופיל נשמר בהצלחה"
-            : "Profile saved"
-        );
+        setSuccess(t("dashboard.profile.saved"));
         router.refresh();
       } catch (err) {
         setError((err as Error).message);
@@ -169,18 +161,10 @@ export function BusinessProfileForm({ locale, business, localities, categories }
     <div className="space-y-6 max-w-5xl">
       <div>
         <h1 className="text-2xl font-bold text-dp-text-primary">
-          {locale === "ar"
-            ? "ملف العمل"
-            : locale === "he"
-            ? "פרופיל עסק"
-            : "Business profile"}
+          {t("dashboard.profile.title")}
         </h1>
         <p className="text-sm text-dp-text-muted mt-1">
-          {locale === "ar"
-            ? "حدّث تفاصيل عملك وساعات العمل"
-            : locale === "he"
-            ? "עדכן את פרטי העסק ושעות הפעילות"
-            : "Update your business details and opening hours."}
+          {t("dashboard.profile.subtitle")}
         </p>
       </div>
 
@@ -188,11 +172,7 @@ export function BusinessProfileForm({ locale, business, localities, categories }
         <Card>
           <CardHeader>
             <CardTitle>
-              {locale === "ar"
-                ? "هوية العمل"
-                : locale === "he"
-                ? "זהות העסק"
-                : "Business identity"}
+              {t("dashboard.profile.identity")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -456,26 +436,22 @@ export function BusinessProfileForm({ locale, business, localities, categories }
         <Card>
           <CardHeader>
             <CardTitle>
-              {locale === "ar"
-                ? "ساعات العمل"
-                : locale === "he"
-                ? "שעות פעילות"
-                : "Opening hours"}
+              {t("dashboard.profile.opening_hours")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="grid grid-cols-[1.5fr,1fr,1fr,auto] gap-3 text-xs text-dp-text-muted">
               <span>
-                {locale === "ar" ? "اليوم" : locale === "he" ? "יום" : "Day"}
+                {t("dashboard.profile.day")}
               </span>
               <span>
-                {locale === "ar" ? "من" : locale === "he" ? "מ" : "From"}
+                {t("common.from")}
               </span>
               <span>
-                {locale === "ar" ? "إلى" : locale === "he" ? "עד" : "To"}
+                {t("common.to")}
               </span>
               <span>
-                {locale === "ar" ? "مغلق" : locale === "he" ? "סגור" : "Closed"}
+                {t("business.closed")}
               </span>
             </div>
             {hours.map((h, idx) => (
@@ -484,7 +460,7 @@ export function BusinessProfileForm({ locale, business, localities, categories }
                 className="grid grid-cols-[1.5fr,1fr,1fr,auto] gap-3 items-center"
               >
                 <span className="text-sm text-dp-text-secondary">
-                  {getLabel(h.day_of_week, locale)}
+                  {getLabel(h.day_of_week, t)}
                 </span>
                 <Input
                   type="time"
@@ -538,16 +514,8 @@ export function BusinessProfileForm({ locale, business, localities, categories }
         <div className="flex justify-end">
           <Button type="submit" disabled={isPending}>
             {isPending
-              ? locale === "ar"
-                ? "يتم الحفظ..."
-                : locale === "he"
-                ? "שומר..." 
-                : "Saving..."
-              : locale === "ar"
-              ? "حفظ التغييرات"
-              : locale === "he"
-              ? "שמור שינויים"
-              : "Save changes"}
+              ? t("dashboard.profile.saving")
+              : t("dashboard.profile.save_changes")}
           </Button>
         </div>
       </form>

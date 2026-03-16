@@ -143,7 +143,7 @@ export function SearchPage({
                 label: getName(l),
               }))}
               placeholder={
-                locale === "ar" ? "كل المناطق" : locale === "he" ? "כל האזורים" : "All Areas"
+                t("search.all_areas")
               }
               icon={<MapPin className="h-4 w-4" />}
             />
@@ -158,7 +158,7 @@ export function SearchPage({
                 label: getName(c),
               }))}
               placeholder={
-                locale === "ar" ? "كل الفئات" : locale === "he" ? "כל הקטגוריות" : "All Categories"
+                t("search.all_categories")
               }
               icon={<Scissors className="h-4 w-4" />}
             />

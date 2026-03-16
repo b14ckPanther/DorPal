@@ -195,11 +195,7 @@ export function BookingWizard({
             {t("booking.choose_service")}
           </h3>
           <p className="text-xs text-dp-text-muted">
-            {locale === "ar"
-              ? "يمكنك اختيار خدمة واحدة أو أكثر لنفس الموعد."
-              : locale === "he"
-              ? "ניתן לבחור שירות אחד או יותר לאותה הזמנה."
-              : "You can select one or more services for the same booking."}
+            {t("booking.multi_service_hint")}
           </p>
           <div className="space-y-2">
             {services.map((s: Service) => (
@@ -314,16 +310,12 @@ export function BookingWizard({
                 {t("booking.choose_staff")}
               </h3>
               <p className="text-xs text-dp-text-muted">
-                {locale === "ar"
-                  ? "اختر عدد الأشخاص واختر الموظفين لكل منهم."
-                  : locale === "he"
-                  ? "בחר מספר אנשים ובחר צוות לכל אחד."
-                  : "Choose party size and assign staff for each person."}
+                {t("booking.party_size_hint")}
               </p>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-dp-text-muted">
-                {locale === "ar" ? "عدد الأشخاص" : locale === "he" ? "מספר אנשים" : "People"}
+                {t("booking.people")}
               </span>
               <input
                 type="number"
@@ -362,11 +354,7 @@ export function BookingWizard({
               {Array.from({ length: partySize }).map((_, idx) => (
                 <div key={idx} className="flex items-center gap-2">
                   <span className="text-xs text-dp-text-muted w-16">
-                    {locale === "ar"
-                      ? `شخص ${idx + 1}`
-                      : locale === "he"
-                      ? `אדם ${idx + 1}`
-                      : `Person ${idx + 1}`}
+                    {t("booking.person_label", { number: idx + 1 })}
                   </span>
                   <select
                     className="flex-1 h-9 rounded-md border border-dp-border bg-dp-surface px-3 text-sm text-dp-text-primary"

@@ -62,14 +62,14 @@ export async function Footer({ locale }: FooterProps) {
           {/* For customers */}
           <div>
             <h3 className="font-semibold text-sm mb-4 text-white/90">
-              للعملاء
+              {t("home.footer.for_customers")}
             </h3>
             <ul className="space-y-2.5">
               {[
-                { label: "البحث عن خدمة", path: "/search" },
-                { label: "حجوزاتي", path: "/my-bookings" },
-                { label: "تسجيل الدخول", path: "/login" },
-                { label: "إنشاء حساب", path: "/signup" },
+                { label: t("home.footer.customer_search"), path: "/search" },
+                { label: t("home.footer.customer_bookings"), path: "/my-bookings" },
+                { label: t("home.footer.customer_login"), path: "/login" },
+                { label: t("home.footer.customer_signup"), path: "/signup" },
               ].map(({ label, path }) => (
                 <li key={path}>
                   <Link
@@ -86,14 +86,14 @@ export async function Footer({ locale }: FooterProps) {
           {/* For businesses */}
           <div>
             <h3 className="font-semibold text-sm mb-4 text-white/90">
-              للأعمال
+              {t("home.footer.for_businesses")}
             </h3>
             <ul className="space-y-2.5">
               {[
-                { label: "انضم إلينا", path: "/apply" },
-                { label: "لوحة التحكم", path: "/dashboard" },
-                { label: "خطط الاشتراك", path: "/pricing" },
-                { label: "مركز المساعدة", path: "/help" },
+                { label: t("home.footer.business_join"), path: "/apply" },
+                { label: t("home.footer.business_dashboard"), path: "/dashboard" },
+                { label: t("home.footer.business_pricing"), path: "/pricing" },
+                { label: t("home.footer.business_help"), path: "/help" },
               ].map(({ label, path }) => (
                 <li key={path}>
                   <Link
@@ -110,7 +110,7 @@ export async function Footer({ locale }: FooterProps) {
           {/* Contact */}
           <div>
             <h3 className="font-semibold text-sm mb-4 text-white/90">
-              تواصل معنا
+              {t("home.footer.contact")}
             </h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-2.5 text-white/60 text-sm">
@@ -129,7 +129,7 @@ export async function Footer({ locale }: FooterProps) {
       {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/40 text-xs">
-          <span>© {new Date().getFullYear()} دور بال. {t("home.footer.rights")}.</span>
+          <span>© {new Date().getFullYear()} DorPal. All Rights Reserved.</span>
           <div className="flex items-center gap-4">
             <Link
               href={getLocalePath("/privacy")}

@@ -39,9 +39,9 @@ export default async function ApplyThanksPage({ params, searchParams }: Props) {
 
           <div className="bg-dp-surface-alt rounded-card p-4 mb-8 text-start space-y-2">
             {[
-              locale === "ar" ? "مراجعة طلبك خلال 24 ساعة" : locale === "he" ? "בדיקת בקשתך תוך 24 שעות" : "Reviewing your application within 24 hours",
-              locale === "ar" ? "التواصل معك لتأكيد البيانات" : locale === "he" ? "יצירת קשר לאישור הפרטים" : "Contact you to confirm details",
-              locale === "ar" ? "تفعيل حسابك والبدء في الحجوزات" : locale === "he" ? "הפעלת החשבון שלך ותחילת ההזמנות" : "Activate your account and start taking bookings",
+              t("apply.process.step1"),
+              t("apply.process.step2"),
+              t("apply.process.step3"),
             ].map((step, i) => (
               <div key={i} className="flex items-center gap-2.5 text-sm text-dp-text-secondary">
                 <div className="h-5 w-5 rounded-full bg-brand-iris flex items-center justify-center text-white text-xs font-bold shrink-0">

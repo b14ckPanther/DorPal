@@ -100,7 +100,7 @@ export function AdminApplicationsPage({ locale, applications }: AdminApplication
           </h1>
           <p className="text-dp-text-muted text-sm mt-0.5">
             {counts.pending}{" "}
-            {locale === "ar" ? "طلب ينتظر المراجعة" : locale === "he" ? "בקשות ממתינות" : "applications pending review"}
+            {t("admin.applications.pending_review")}
           </p>
         </div>
       </div>
@@ -126,7 +126,7 @@ export function AdminApplicationsPage({ locale, applications }: AdminApplication
             </p>
             <p className="text-xs text-dp-text-muted capitalize">
               {status === "all"
-                ? (locale === "ar" ? "الكل" : locale === "he" ? "הכל" : "All")
+                ? t("common.all")
                 : t(`admin.applications.${status}`)}
             </p>
           </button>
@@ -138,7 +138,7 @@ export function AdminApplicationsPage({ locale, applications }: AdminApplication
         <CardContent className="p-0">
           {filtered.length === 0 ? (
             <div className="text-center py-16 text-dp-text-muted">
-              {locale === "ar" ? "لا توجد طلبات" : locale === "he" ? "אין בקשות" : "No applications"}
+              {t("admin.applications.no_applications")}
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -146,19 +146,19 @@ export function AdminApplicationsPage({ locale, applications }: AdminApplication
                 <thead>
                   <tr className="border-b border-dp-border bg-dp-surface-alt">
                     <th className="text-start px-4 py-3 text-xs font-semibold text-dp-text-muted uppercase tracking-wide">
-                      {locale === "ar" ? "المتقدم" : locale === "he" ? "מגיש" : "Applicant"}
+                      {t("admin.applications.applicant")}
                     </th>
                     <th className="text-start px-4 py-3 text-xs font-semibold text-dp-text-muted uppercase tracking-wide hidden sm:table-cell">
-                      {locale === "ar" ? "العمل" : locale === "he" ? "עסק" : "Business"}
+                      {t("admin.applications.business")}
                     </th>
                     <th className="text-start px-4 py-3 text-xs font-semibold text-dp-text-muted uppercase tracking-wide hidden md:table-cell">
-                      {locale === "ar" ? "الموقع" : locale === "he" ? "מיקום" : "Location"}
+                      {t("admin.applications.location")}
                     </th>
                     <th className="text-start px-4 py-3 text-xs font-semibold text-dp-text-muted uppercase tracking-wide">
-                      {locale === "ar" ? "الحالة" : locale === "he" ? "סטטוס" : "Status"}
+                      {t("admin.applications.status")}
                     </th>
                     <th className="text-start px-4 py-3 text-xs font-semibold text-dp-text-muted uppercase tracking-wide">
-                      {locale === "ar" ? "الإجراءات" : locale === "he" ? "פעולות" : "Actions"}
+                      {t("admin.applications.actions")}
                     </th>
                   </tr>
                 </thead>
@@ -248,7 +248,7 @@ export function AdminApplicationsPage({ locale, applications }: AdminApplication
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>
-                  {locale === "ar" ? "تفاصيل الطلب" : locale === "he" ? "פרטי הבקשה" : "Application Details"}
+                  {t("admin.applications.view")}
                 </CardTitle>
                 <Button variant="ghost" size="icon-sm" onClick={() => setSelected(null)}>
                   <XCircle className="h-4 w-4" />
@@ -258,12 +258,12 @@ export function AdminApplicationsPage({ locale, applications }: AdminApplication
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  { icon: Building2, label: locale === "ar" ? "اسم العمل" : "Business", value: getBizName(app) },
-                  { icon: Scissors, label: locale === "ar" ? "الفئة" : "Category", value: getCategoryName(app) },
-                  { icon: Mail, label: locale === "ar" ? "البريد" : "Email", value: app.applicant_email },
-                  { icon: Phone, label: locale === "ar" ? "الهاتف" : "Phone", value: app.applicant_phone ?? "-" },
-                  { icon: MapPin, label: locale === "ar" ? "الموقع" : "Location", value: `${getLocalityName(app)}${app.address ? ` - ${app.address}` : ""}` },
-                  { icon: Calendar, label: locale === "ar" ? "التاريخ" : "Date", value: new Date(app.submitted_at).toLocaleDateString() },
+                  { icon: Building2, label: t("admin.applications.business_name"), value: getBizName(app) },
+                  { icon: Scissors, label: t("admin.applications.category"), value: getCategoryName(app) },
+                  { icon: Mail, label: t("common.email"), value: app.applicant_email },
+                  { icon: Phone, label: t("common.phone"), value: app.applicant_phone ?? "-" },
+                  { icon: MapPin, label: t("admin.applications.location"), value: `${getLocalityName(app)}${app.address ? ` - ${app.address}` : ""}` },
+                  { icon: Calendar, label: t("admin.applications.date"), value: new Date(app.submitted_at).toLocaleDateString() },
                 ].map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex items-start gap-3 p-3 bg-dp-surface-alt rounded-card-sm">
                     <Icon className="h-4 w-4 text-brand-iris shrink-0 mt-0.5" />
@@ -276,7 +276,7 @@ export function AdminApplicationsPage({ locale, applications }: AdminApplication
                 {app.description_en && (
                   <div className="sm:col-span-2 p-3 bg-dp-surface-alt rounded-card-sm">
                     <p className="text-xs text-dp-text-muted mb-1">
-                      {locale === "ar" ? "رسالة المتقدم" : "Description"}
+                      {t("admin.applications.applicant_message")}
                     </p>
                     <p className="text-sm text-dp-text-secondary">{app.description_en}</p>
                   </div>

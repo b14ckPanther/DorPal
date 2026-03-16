@@ -14,14 +14,29 @@
       "subscription": "מנוי",
       "settings": "הגדרות"
     },
+    "profile": {
+      "title": "פרופיל עסק",
+      "subtitle": "עדכן את פרטי העסק ושעות הפעילות",
+      "identity": "זהות העסק",
+      "opening_hours": "שעות פעילות",
+      "day": "יום",
+      "saved": "הפרופיל נשמר בהצלחה",
+      "saving": "שומר...",
+      "save_changes": "שמור שינויים"
+    },
     "overview": {
       "today_bookings": "הזמנות היום",
       "revenue": "הכנסות החודש",
       "rating": "ממוצע דירוג",
-      "new_reviews": "ביקורות חדשות"
+      "new_reviews": "ביקורות חדשות",
+      "week_bookings_title": "הזמנות השבוע",
+      "quick_actions_title": "פעולות מהירות",
+      "add_booking": "הוסף הזמנה",
+      "add_offer": "הוסף מבצע"
     },
     "bookings": {
       "title": "כל ההזמנות",
+      "apply_filters": "החל",
       "upcoming": "קרובות",
       "no_bookings": "אין הזמנות עדיין",
       "no_bookings_hint": "הזמנות יופיעו כאן כשלקוחות יתחילו להזמין",
@@ -70,7 +85,8 @@
       "active": "פעיל",
       "staff_assigned": "צוות מוקצה",
       "edit": "ערוך",
-      "deactivate": "בטל הפעלה"
+      "deactivate": "בטל הפעלה",
+      "confirm_deactivate": "לבטל הפעלת שירות זה?"
     },
     "staff": {
       "title": "צוות",
@@ -82,12 +98,20 @@
       "blocks": "חסימות",
       "edit": "ערוך",
       "deactivate": "בטל הפעלה",
-      "invite": "הזמן צוות"
+      "invite": "הזמן צוות",
+      "confirm_deactivate": "לבטל הפעלת חבר צוות זה?"
     },
     "offers": { "title": "מבצעים", "subtitle": "ניהול מבצעים", "add": "הוסף מבצע", "no_offers": "אין מבצעים", "discount": "הנחה", "percentage": "אחוז", "fixed": "קבוע", "valid_until": "תקף עד", "reply": "השב", "respond": "השב" },
     "reviews": { "title": "ביקורות", "subtitle": "ביקורות לקוחות", "no_reviews": "אין ביקורות", "your_response": "התגובה שלך", "report": "דווח" },
     "analytics": { "title": "ניתוחים", "subtitle": "הזמנות והכנסות", "bookings_count": "הזמנות", "revenue": "הכנסות", "new_customers": "לקוחות חדשים", "cancellations": "ביטולים", "export_csv": "ייצוא CSV" },
     "subscription": { "title": "מנוי", "subtitle": "תוכנית ושימוש", "plan": "תוכנית", "status": "סטטוס", "period_end": "סוף תקופה", "usage_staff": "צוות", "usage_offers": "מבצעים", "usage_reminders": "תזכורות החודש", "manage_billing": "נהל חיוב", "billing_history": "היסטוריית חיוב" },
-    "settings": { "title": "הגדרות", "subtitle": "העדפות התראות", "email_on_booking": "אימייל בהזמנה חדשה", "sms_on_reminder": "SMS תזכורת" }
+    "settings": { "title": "הגדרות", "subtitle": "העדפות התראות", "email_on_booking": "אימייל בהזמנה חדשה", "sms_on_reminder": "SMS תזכורת" },
+    "shell": {
+      "your_business": "העסק שלך",
+      "view_profile": "הצג פרופיל",
+      "notifications": "התראות",
+      "notifications_preview": "התראות (ניסוי)",
+      "notifications_coming_soon": "התראות אמיתיות יפעלו בהמשך."
+    }
   }
 }
