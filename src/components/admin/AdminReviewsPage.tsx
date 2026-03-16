@@ -85,25 +85,30 @@ export function AdminReviewsPage({ locale }: { locale: string }) {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-dp-border">
-                  {list.map((row) => (
-                    <tr key={String(row.id)} className="hover:bg-dp-surface-alt/50">
-                      <td className="px-4 py-3 text-sm">{bizName(row)}</td>
-                      <td className="px-4 py-3 text-sm">{customerName(row)}</td>
-                      <td className="px-4 py-3"><span className="flex items-center gap-0.5"><Star className="h-4 w-4 fill-amber-400 text-amber-400" />{String(row.rating)}</span></td>
-                      <td className="px-4 py-3"><Badge size="sm">{String(row.status)}</Badge></td>
+                  {list.map((row, idx) => {
+                    const typedRow = row as Record<string, unknown>;
+                    const id = String(typedRow.id ?? idx);
+                    const rating = String(typedRow.rating ?? "");
+                    const status = String(typedRow.status ?? "");
+                    return (
+                    <tr key={id} className="hover:bg-dp-surface-alt/50">
+                      <td className="px-4 py-3 text-sm">{String(bizName(typedRow))}</td>
+                      <td className="px-4 py-3 text-sm">{String(customerName(typedRow))}</td>
+                      <td className="px-4 py-3"><span className="flex items-center gap-0.5"><Star className="h-4 w-4 fill-amber-400 text-amber-400" />{rating}</span></td>
+                      <td className="px-4 py-3"><Badge size="sm">{status}</Badge></td>
                       <td className="px-4 py-3">
                         <div className="flex gap-1">
-                          <Button variant="ghost" size="icon-sm" onClick={() => setSelectedId(selectedId === row.id ? null : (row.id as string))}><Eye className="h-4 w-4" /></Button>
-                          {row.status === "published" && (
-                            <Button variant="ghost" size="xs" disabled={pending} onClick={() => setStatus(row.id as string, "hidden")} title="Hide">Hide</Button>
+                          <Button variant="ghost" size="icon-sm" onClick={() => setSelectedId(selectedId === id ? null : id)}><Eye className="h-4 w-4" /></Button>
+                          {status === "published" && (
+                            <Button variant="ghost" size="xs" disabled={pending} onClick={() => setStatus(id, "hidden")} title="Hide">Hide</Button>
                           )}
-                          {row.status !== "removed" && (
-                            <Button variant="ghost" size="xs" className="text-dp-error" disabled={pending} onClick={() => setStatus(row.id as string, "removed")} title="Remove">Remove</Button>
+                          {status !== "removed" && (
+                            <Button variant="ghost" size="xs" className="text-dp-error" disabled={pending} onClick={() => setStatus(id, "removed")} title="Remove">Remove</Button>
                           )}
                         </div>
                       </td>
                     </tr>
-                  ))}
+                  )})}
                 </tbody>
               </table>
             </div>
@@ -114,12 +119,25 @@ export function AdminReviewsPage({ locale }: { locale: string }) {
       {selectedId && selected && (
         <Card>
           <CardHeader className="flex flex-row justify-between">
-            <CardTitle>Review — {bizName(selected)}</CardTitle>
+            <CardTitle>Review — {String(bizName(selected as Record<string, unknown>))}</CardTitle>
             <Button variant="ghost" size="icon-sm" onClick={() => setSelectedId(null)}><XCircle className="h-4 w-4" /></Button>
           </CardHeader>
           <CardContent className="space-y-3">
             <p><strong>Rating:</strong> {String(selected.rating)}</p>
-            <p><strong>Body:</strong> {locale === "ar" ? (selected.body_ar ?? selected.body_en) : (selected.body_en ?? selected.body_ar)}</p>
+            <p>
+              <strong>Body:</strong>{" "}
+              {locale === "ar"
+                ? String(
+                    (selected as Record<string, unknown>).body_ar ??
+                      (selected as Record<string, unknown>).body_en ??
+                      ""
+                  )
+                : String(
+                    (selected as Record<string, unknown>).body_en ??
+                      (selected as Record<string, unknown>).body_ar ??
+                      ""
+                  )}
+            </p>
             <p><strong>Status:</strong> <Badge size="sm">{String(selected.status)}</Badge></p>
             <div>
               <label className="block text-sm mb-1">Reason (for moderation)</label>

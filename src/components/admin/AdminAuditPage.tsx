@@ -74,15 +74,29 @@ export function AdminAuditPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-dp-border">
-                  {list.map((row) => (
-                    <tr key={String(row.id)} className="hover:bg-dp-surface-alt/50">
-                      <td className="px-4 py-3 text-sm whitespace-nowrap">{row.created_at ? new Date(String(row.created_at)).toLocaleString() : "-"}</td>
-                      <td className="px-4 py-3 text-sm">{actorName(row)}</td>
-                      <td className="px-4 py-3 text-sm font-mono">{String(row.action)}</td>
-                      <td className="px-4 py-3 text-sm">{String(row.entity_type)} / {String(row.entity_id).slice(0, 8)}…</td>
-                      <td className="px-4 py-3 text-xs text-dp-text-muted max-w-[200px] truncate">{row.payload ? JSON.stringify(row.payload) : "-"}</td>
-                    </tr>
-                  ))}
+                  {list.map((row, idx) => {
+                    const typedRow = row as Record<string, unknown>;
+                    return (
+                      <tr key={String(typedRow.id ?? idx)} className="hover:bg-dp-surface-alt/50">
+                        <td className="px-4 py-3 text-sm whitespace-nowrap">
+                          {typedRow.created_at
+                            ? new Date(String(typedRow.created_at)).toLocaleString()
+                            : "-"}
+                        </td>
+                        <td className="px-4 py-3 text-sm">{String(actorName(typedRow))}</td>
+                        <td className="px-4 py-3 text-sm font-mono">
+                          {String(typedRow.action ?? "")}
+                        </td>
+                        <td className="px-4 py-3 text-sm">
+                          {String(typedRow.entity_type ?? "")} /{" "}
+                          {String(typedRow.entity_id ?? "").slice(0, 8)}…
+                        </td>
+                        <td className="px-4 py-3 text-xs text-dp-text-muted max-w-[200px] truncate">
+                          {typedRow.payload ? JSON.stringify(typedRow.payload) : "-"}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

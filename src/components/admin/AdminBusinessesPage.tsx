@@ -105,23 +105,52 @@ export function AdminBusinessesPage({ locale }: { locale: string }) {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-dp-border">
-                  {list.map((row) => (
-                    <tr key={String(row.id)} className="hover:bg-dp-surface-alt/50">
-                      <td className="px-4 py-3">
-                        <p className="font-medium text-sm">{locale === "ar" ? (row.name_ar ?? row.name_en) : row.name_en}</p>
-                        <p className="text-xs text-dp-text-muted">{String(row.slug)}</p>
-                      </td>
-                      <td className="px-4 py-3 hidden sm:table-cell">{ownerName(row)}</td>
-                      <td className="px-4 py-3">
-                        <Badge variant={row.status === "active" ? "success" : row.status === "suspended" ? "error" : "warning"} size="sm">{String(row.status)}</Badge>
-                      </td>
-                      <td className="px-4 py-3">
-                        <Button variant="ghost" size="icon-sm" onClick={() => setSelectedId(selectedId === row.id ? null : (row.id as string))}>
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
+                  {list.map((row, idx) => {
+                    const typedRow = row as Record<string, unknown>;
+                    const nameEn = String(typedRow.name_en ?? "");
+                    const nameAr = String(typedRow.name_ar ?? "");
+                    const slug = String(typedRow.slug ?? "");
+                    const status = String(typedRow.status ?? "");
+                    const id = String(typedRow.id ?? idx);
+                    return (
+                      <tr key={id} className="hover:bg-dp-surface-alt/50">
+                        <td className="px-4 py-3">
+                          <p className="font-medium text-sm">
+                            {locale === "ar" && nameAr ? nameAr : nameEn}
+                          </p>
+                          <p className="text-xs text-dp-text-muted">{slug}</p>
+                        </td>
+                        <td className="px-4 py-3 hidden sm:table-cell">
+                          {String(ownerName(typedRow))}
+                        </td>
+                        <td className="px-4 py-3">
+                          <Badge
+                            variant={
+                              status === "active"
+                                ? "success"
+                                : status === "suspended"
+                                ? "error"
+                                : "warning"
+                            }
+                            size="sm"
+                          >
+                            {status}
+                          </Badge>
+                        </td>
+                        <td className="px-4 py-3">
+                          <Button
+                            variant="ghost"
+                            size="icon-sm"
+                            onClick={() =>
+                              setSelectedId(selectedId === id ? null : id)
+                            }
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -132,7 +161,16 @@ export function AdminBusinessesPage({ locale }: { locale: string }) {
       {selectedId && detail && (
         <Card>
           <CardHeader className="flex flex-row justify-between">
-            <CardTitle>{locale === "ar" ? (detail.name_ar ?? detail.name_en) : detail.name_en} — {String(detail.slug)}</CardTitle>
+            <CardTitle>
+              {locale === "ar"
+                ? String(
+                    (detail as Record<string, unknown>).name_ar ??
+                      (detail as Record<string, unknown>).name_en ??
+                      ""
+                  )
+                : String((detail as Record<string, unknown>).name_en ?? "")}{" "}
+              — {String((detail as Record<string, unknown>).slug ?? "")}
+            </CardTitle>
             <Button variant="ghost" size="icon-sm" onClick={() => setSelectedId(null)}><XCircle className="h-4 w-4" /></Button>
           </CardHeader>
           <CardContent className="space-y-4">

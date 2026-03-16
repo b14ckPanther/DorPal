@@ -70,7 +70,7 @@ export function ApplyPageContent({ locale, localities, categories }: ApplyPageCo
     }
     setLoading(true);
     try {
-      const supabase = createClient();
+      const supabase = createClient() as any;
       const { error } = await supabase.from("business_applications").insert({
         applicant_name: form.full_name,
         applicant_email: form.email,

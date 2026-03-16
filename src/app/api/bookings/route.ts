@@ -161,11 +161,9 @@ export async function POST(req: Request) {
     let clientSecret: string | null = null;
 
     if (depositRequired && depositAmountTotal > 0 && process.env.STRIPE_SECRET_KEY) {
-      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-        apiVersion: "2024-06-20",
-      });
+      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
-      const amountCents = Math.round(depositAmount * 100);
+      const amountCents = Math.round(depositAmountTotal * 100);
 
       // Create payment record first
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -189,7 +187,7 @@ export async function POST(req: Request) {
 
         const intent = await stripe.paymentIntents.create({
           amount: amountCents,
-          currency: (service.currency ?? "ILS").toLowerCase(),
+          currency: currency.toLowerCase(),
           metadata: {
             appointment_id: appointmentId,
             payment_id: paymentId,

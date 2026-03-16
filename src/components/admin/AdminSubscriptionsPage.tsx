@@ -86,19 +86,26 @@ export function AdminSubscriptionsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-dp-border">
-                  {list.map((row) => (
-                    <tr key={String(row.id)} className="hover:bg-dp-surface-alt/50">
-                      <td className="px-4 py-3 text-sm">{bizName(row)}</td>
-                      <td className="px-4 py-3 text-sm">{planName(row)}</td>
-                      <td className="px-4 py-3"><Badge size="sm">{String(row.status)}</Badge></td>
-                      <td className="px-4 py-3 text-sm">{row.trial_ends_at ? new Date(String(row.trial_ends_at)).toLocaleDateString() : "-"}</td>
+                  {list.map((row, idx) => {
+                    const typedRow = row as Record<string, unknown>;
+                    const id = String(typedRow.id ?? idx);
+                    const status = String(typedRow.status ?? "");
+                    const trialEnds = typedRow.trial_ends_at
+                      ? new Date(String(typedRow.trial_ends_at)).toLocaleDateString()
+                      : "-";
+                    return (
+                    <tr key={id} className="hover:bg-dp-surface-alt/50">
+                      <td className="px-4 py-3 text-sm">{String(bizName(typedRow))}</td>
+                      <td className="px-4 py-3 text-sm">{String(planName(typedRow))}</td>
+                      <td className="px-4 py-3"><Badge size="sm">{status}</Badge></td>
+                      <td className="px-4 py-3 text-sm">{trialEnds}</td>
                       <td className="px-4 py-3">
-                        <Button variant="ghost" size="xs" disabled={pending} onClick={() => { setEditingId(editingId === row.id ? null : (row.id as string)); setNewPlanId(""); setNewTrialEnds(""); setNewStatus(""); }}>
+                        <Button variant="ghost" size="xs" disabled={pending} onClick={() => { setEditingId(editingId === id ? null : id); setNewPlanId(""); setNewTrialEnds(""); setNewStatus(""); }}>
                           Edit
                         </Button>
                       </td>
                     </tr>
-                  ))}
+                  )})}
                 </tbody>
               </table>
             </div>
