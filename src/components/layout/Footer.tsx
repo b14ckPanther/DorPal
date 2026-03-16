@@ -33,7 +33,7 @@ export async function Footer({ locale }: FooterProps) {
                 alt="DorPal"
                 width={140}
                 height={42}
-                className="h-9 w-auto object-contain opacity-95 bg-transparent"
+                className="h-9 w-auto object-contain opacity-95 bg-transparent brightness-0 invert"
                 unoptimized
                 style={{ background: "transparent" }}
               />

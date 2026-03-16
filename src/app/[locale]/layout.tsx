@@ -8,7 +8,6 @@ import "@/app/globals.css";
 import { getDirection } from "@/lib/utils";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { AuthProvider } from "@/components/providers/AuthProvider";
-import { HtmlLangDir } from "@/components/HtmlLangDir";
 
 const LOCALES = ["ar", "he", "en"] as const;
 
@@ -63,7 +62,6 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   const dir = getDirection(locale);
 
-  const fontVars = `${cairo.variable} ${heebo.variable} ${ubuntu.variable}`;
   const fontClass =
     locale === "ar"
       ? "font-ar"
@@ -72,26 +70,24 @@ export default async function LocaleLayout({
         : "font-en";
 
   return (
-    <HtmlLangDir locale={locale} dir={dir}>
-      <div className={`${fontVars} ${fontClass} antialiased min-h-screen`}>
-        <NextIntlClientProvider messages={messages}>
-          <QueryProvider>
-            <AuthProvider>
-              {children}
-            </AuthProvider>
-          </QueryProvider>
-        </NextIntlClientProvider>
-        <Toaster
-          position={dir === "rtl" ? "bottom-right" : "bottom-left"}
-          richColors
-          toastOptions={{
-            style: {
-              fontFamily: "inherit",
-              direction: dir,
-            },
-          }}
-        />
-      </div>
-    </HtmlLangDir>
+    <div className={`${cairo.variable} ${heebo.variable} ${ubuntu.variable} ${fontClass} antialiased min-h-screen`}>
+      <NextIntlClientProvider messages={messages}>
+        <QueryProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </QueryProvider>
+      </NextIntlClientProvider>
+      <Toaster
+        position={dir === "rtl" ? "bottom-right" : "bottom-left"}
+        richColors
+        toastOptions={{
+          style: {
+            fontFamily: "inherit",
+            direction: dir,
+          },
+        }}
+      />
+    </div>
   );
 }
