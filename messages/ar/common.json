@@ -50,6 +50,9 @@
     "currency": "₪",
     "per_month": "/ شهر",
     "anonymous": "عميل",
-    "friend": "صديقنا"
+    "friend": "صديقنا",
+    "full_name": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف"
   }
 }

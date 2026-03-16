@@ -7,8 +7,8 @@ import { useTranslations } from "next-intl";
 import { CalendarDays, Clock, User, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-import type { BusinessProfile, Service, StaffMember } from "@/lib/supabase/queries";
-import type { AvailabilitySlot } from "@/lib/supabase/queries";
+import { createClient } from "@/lib/supabase/client";
+import type { BusinessProfile, Service, StaffMember, AvailabilitySlot } from "@/lib/supabase/queries";
 
 type Step = "service" | "datetime" | "staff" | "details";
 
@@ -16,18 +16,12 @@ interface BookingWizardProps {
   locale: string;
   business: BusinessProfile;
   initialServiceId?: string | null;
-  fetchAvailability: (args: {
-    serviceIds: string[];
-    staffId?: string | null;
-    date: string; // YYYY-MM-DD
-  }) => Promise<AvailabilitySlot[]>;
 }
 
 export function BookingWizard({
   locale,
   business,
   initialServiceId,
-  fetchAvailability,
 }: BookingWizardProps) {
   const t = useTranslations();
   const searchParams = useSearchParams();
@@ -61,18 +55,28 @@ export function BookingWizard({
   const directionClass = locale === "en" ? "ltr" : "rtl";
 
   async function handleDateChange(dateStr: string) {
+    const supabase = createClient() as any;
+
     setSelectedDate(dateStr);
     setSelectedSlot(null);
     if (selectedServiceIds.length === 0) return;
 
     setLoadingSlots(true);
     try {
-      const result = await fetchAvailability({
-        serviceIds: selectedServiceIds,
-        staffId: selectedStaffId,
-        date: dateStr,
+      const { data, error } = await supabase.rpc("get_available_slots", {
+        p_business_id: business.id,
+        p_service_ids: selectedServiceIds,
+        p_from_date: dateStr,
+        p_to_date: dateStr,
+        p_staff_id: selectedStaffId ?? null,
       });
-      setSlots(result);
+      if (error) {
+        // eslint-disable-next-line no-console
+        console.error("Failed to load availability via RPC", error.message);
+        setSlots([]);
+      } else {
+        setSlots((data ?? []) as AvailabilitySlot[]);
+      }
     } catch (e) {
       console.error("Failed to load availability", e);
       setSlots([]);
@@ -277,23 +281,25 @@ export function BookingWizard({
               </p>
             )}
             {!loadingSlots && slots && slots.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {slots.map((slot) => (
-                  <button
-                    key={`${slot.staff_id}-${slot.start_at}`}
-                    type="button"
-                    onClick={() => setSelectedSlot(slot)}
-                    className={cn(
-                      "px-3 py-1.5 rounded-full border text-xs num transition-all",
-                      selectedSlot?.staff_id === slot.staff_id &&
-                        selectedSlot?.start_at === slot.start_at
-                        ? "border-brand-iris bg-brand-iris/10 text-brand-iris"
-                        : "border-dp-border bg-dp-surface text-dp-text-primary hover:border-brand-iris/40 hover:bg-brand-iris/5"
-                    )}
-                  >
-                    {formatTime(slot.start_at)}
-                  </button>
-                ))}
+              <div className="max-h-56 overflow-y-auto rounded-lg border border-dp-border/60 bg-dp-surface-alt/40 p-2">
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                  {slots.map((slot) => (
+                    <button
+                      key={`${slot.staff_id}-${slot.start_at}`}
+                      type="button"
+                      onClick={() => setSelectedSlot(slot)}
+                      className={cn(
+                        "w-full px-3 py-1.5 rounded-full border text-xs num text-center transition-all",
+                        selectedSlot?.staff_id === slot.staff_id &&
+                          selectedSlot?.start_at === slot.start_at
+                          ? "border-brand-iris bg-brand-iris/10 text-brand-iris"
+                          : "border-dp-border bg-dp-surface text-dp-text-primary hover:border-brand-iris/40 hover:bg-brand-iris/5"
+                      )}
+                    >
+                      {formatTime(slot.start_at)}
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
           </div>

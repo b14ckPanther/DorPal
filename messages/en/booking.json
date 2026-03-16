@@ -51,6 +51,12 @@
     "any_staff_label": "Any staff",
     "enter_details": "Enter your details",
     "details_hint": "We’ll use these details to confirm your booking.",
-    "confirm_placeholder": "Confirm (demo – no payment yet)"
+    "confirm_placeholder": "Confirm (demo – no payment yet)",
+
+    "hero_subtitle": "Choose a service, date, and time to request a booking.",
+    "what_next_title": "What happens next?",
+    "what_next_step1": "Select service and time.",
+    "what_next_step2": "Fill in your contact details.",
+    "what_next_step3": "In the next phase we''ll confirm with payment."
   }
 }

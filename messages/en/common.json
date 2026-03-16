@@ -50,6 +50,9 @@
     "currency": "₪",
     "per_month": "/ month",
     "anonymous": "Customer",
-    "friend": "friend"
+    "friend": "friend",
+    "full_name": "Full name",
+    "email": "Email",
+    "phone": "Phone"
   }
 }

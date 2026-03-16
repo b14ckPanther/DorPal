@@ -51,6 +51,12 @@
     "any_staff_label": "כל איש צוות",
     "enter_details": "הזן את פרטיך",
     "details_hint": "נשתמש בפרטים האלו כדי לאשר את ההזמנה.",
-    "confirm_placeholder": "אשר (דמו – ללא תשלום כרגע)"
+    "confirm_placeholder": "אשר (דמו – ללא תשלום כרגע)",
+
+    "hero_subtitle": "בחר שירות, תאריך ושעה כדי לבקש תור.",
+    "what_next_title": "מה קורה אחרי זה?",
+    "what_next_step1": "בחר שירות וזמן שמתאים לך.",
+    "what_next_step2": "הזן את פרטי ההתקשרות שלך.",
+    "what_next_step3": "בשלב הבא נאשר את ההזמנה יחד עם התשלום."
   }
 }
