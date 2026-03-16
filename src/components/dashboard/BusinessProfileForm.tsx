@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
+import { toast } from "sonner";
 
 type Props = {
   locale: string;
@@ -86,6 +87,10 @@ export function BusinessProfileForm({ locale, business, localities, categories }
     file: File,
     kind: "logo" | "cover"
   ) {
+    // Debug visibility
+    // eslint-disable-next-line no-console
+    console.log("Uploading business image", { kind, name: file.name, size: file.size });
+
     const supabase = createClient();
     const bucket = "business-assets";
     const ext = file.name.split(".").pop() ?? "png";
@@ -99,6 +104,7 @@ export function BusinessProfileForm({ locale, business, localities, categories }
       if (error) {
         // eslint-disable-next-line no-console
         console.error("Upload failed:", error.message);
+        toast.error("Image upload failed", { description: error.message });
         return;
       }
       const { data: publicUrl } = supabase.storage.from(bucket).getPublicUrl(path);
@@ -108,6 +114,7 @@ export function BusinessProfileForm({ locale, business, localities, categories }
         logo_url: kind === "logo" ? url : s.logo_url,
         cover_url: kind === "cover" ? url : s.cover_url,
       }));
+      toast.success(kind === "logo" ? "Logo uploaded" : "Cover uploaded");
     } finally {
       setUploading(false);
     }
